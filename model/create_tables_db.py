@@ -1,15 +1,10 @@
-from sqlalchemy import Column, Integer, String, create_engine, Index, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-import uuid
-from players import Players
-from matches import Matches
+from database import Base, engine
 
 
-Base = declarative_base()
+def create_tables():
+    # engine.echo = True
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    # engine.echo = True
 
-name_index = Index("name_index", Players.name)
-
-connection_string = "mysql+pymysql://root:KUku1212_b2zZ@localhost/tennis"
-engine = create_engine(url=connection_string, echo=False)
-Base.metadata.create_all(engine)
+create_tables()
