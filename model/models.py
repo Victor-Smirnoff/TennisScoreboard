@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, ForeignKey, Index
+from sqlalchemy import ForeignKey, Index
 import uuid
-from database import Base, str_50
+from database import Base, str_50, str_250
 from typing import Annotated
 
 
-int_pk_ai = Annotated[int, mapped_column(primary_key=True, autoincrement=True)]
-player_id = Annotated[int, mapped_column(ForeignKey("players.ID", ondelete="CASCADE"))]
+int_pk_ai = Annotated[int, mapped_column(primary_key=True, autoincrement=True)]             # тип данных int primary_key и autoincrement
+player_id = Annotated[int, mapped_column(ForeignKey("players.ID", ondelete="CASCADE"))]     # тип данных int ForeignKey для players.ID
 
 
 class PlayersOrm(Base):
@@ -28,8 +28,8 @@ class MatchesOrm(Base):
     __tablename__ = "matches"
 
     ID: Mapped[int_pk_ai]
-    UUID: Mapped[str] = mapped_column(String(255), default=str(uuid.uuid4()))
+    UUID: Mapped[str_250] = mapped_column(default=uuid.uuid4, unique=True, nullable=False)
     player1: Mapped[player_id]
     player2: Mapped[player_id]
     winner: Mapped[player_id]
-    score: Mapped[str_50] = mapped_column(nullable=False)
+    score: Mapped[str_250] = mapped_column(nullable=False)
