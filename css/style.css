@@ -48,3 +48,35 @@ p {
     margin-left: 20px; /* Левый отступ абзаца */
     margin-right: 20px; /* Правый отступ абзаца */
 }
+
+.nav-conteiner {
+    overflow: hidden;
+    margin-top: 40px;
+    justify-content: center; /* Выравнивание кнопок по центру горизонтально */
+    display: flex;
+}
+
+.input-custom {
+    background-color: #3c3f41; /* Цвет фона поля ввода */
+    color: #a8ac89; /* Цвет текста на поле ввода */
+    padding: 10px 20px; /* Внутренний отступ (верх/низ, лево/право) */
+    font-size: 18px; /* Размер текста */
+    border: 2; /* Убрать границу */
+    transition: background-color 0.1s, color 0.1s; /* Плавный переход при изменении цвета */
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.input-custom:focus {
+    background-color: #a8ac89;
+    color: #101010;
+}
+
+.p-text {
+    font-family: Lucida Sans Unicode;
+    color: #a8ac89; /* Цвет текста на кнопке */
+    font-size: 18px; /* Размер текста на кнопке */
+    margin-right: 80px;
+    margin-left: 80px;
+}
