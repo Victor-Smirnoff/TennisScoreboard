@@ -3,3 +3,6 @@ bruno/
 __pycache__/
 Materials for TennisScoreboard/
 venv/
+Lib/
+Scripts/
+pyvenv.cfg

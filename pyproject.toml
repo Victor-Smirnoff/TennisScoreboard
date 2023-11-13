@@ -8,7 +8,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+gunicorn = "*"
 
+
+[tool.poetry.group.dev.dependencies]
+waitress = "^2.1.2"
 
 [build-system]
 requires = ["poetry-core"]
