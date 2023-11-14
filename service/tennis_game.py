@@ -72,6 +72,7 @@ class TennisGame:
         Метод выводит в консоль текущий счёт гейма
         :return: None
         """
+        print("Это вывод результата гейма")
         print(f"игрок_1: мячи: {self.player_1_score} очки: {self.result_game_score['player_1']}")
         print(f"игрок_2: мячи: {self.player_2_score} очки: {self.result_game_score['player_2']}")
 

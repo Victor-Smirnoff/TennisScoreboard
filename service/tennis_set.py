@@ -59,6 +59,7 @@ class TennisSet:
         Метод выводит в консоль текущий счёт сета
         :return: None
         """
+        print("Это вывод результата сета")
         print(self.result_set_score)
 
 
