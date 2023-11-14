@@ -1,10 +1,10 @@
-class Game:
+class TennisGame:
     """
     Класс описывает один гейм игры в теннис
     """
     def __init__(self):
-        self.player_1_win = False
-        self.player_2_win = False
+        self.player_1_win_game = False
+        self.player_2_win_game = False
         self.player_1_score = 0
         self.player_2_score = 0
         self.result_game_score = {"player_1": 0, "player_2": 0}
@@ -20,7 +20,8 @@ class Game:
                 self.player_1_score += 1
             elif int(player) == 2:
                 self.player_2_score += 1
-            raise ValueError("Номер игрока должен быть числом 1 или 2")
+            else:
+                raise ValueError("Номер игрока должен быть числом 1 или 2")
         except Exception as e:
             print(e)
 
@@ -30,16 +31,16 @@ class Game:
         :return: bool True - гейм завершен, False - в противном случае
         """
         if self.player_1_score == 4 and self.player_2_score < 3:
-            self.player_1_win = True
+            self.player_1_win_game = True
             return True
         elif self.player_2_score == 4 and self.player_1_score < 3:
-            self.player_2_win = True
+            self.player_2_win_game = True
             return True
         elif self.player_1_score > 4 and self.player_1_score - self.player_2_score == 2:
-            self.player_1_win = True
+            self.player_1_win_game = True
             return True
         elif self.player_2_score > 4 and self.player_2_score - self.player_1_score == 2:
-            self.player_2_win = True
+            self.player_2_win_game = True
             return True
         else:
             return False
@@ -71,7 +72,7 @@ class Game:
             elif self.player_2_score - self.player_1_score > 1:
                 self.result_game_score["player_2"] = "гейм"
 
-    def show_score(self):
+    def show_game_score(self):
         """
         Метод выводит в консоль текущий счёт гейма
         :return: None
@@ -80,15 +81,63 @@ class Game:
         print(f"игрок_2: мячи: {self.player_2_score} очки: {self.result_game_score['player_2']}")
 
 
-# это строчки для теста класса гейм !!!
-# game = Game()
+class TennisGameTieBreak(TennisGame):
+    """
+    Класс описывает особый вид гейма - укороченный гейм tie-break до 7 мячей
+    """
+    def check_end_game(self):
+        """
+        Метод проверят завершился тай-брейк или нет
+        :return: bool True - тай-брейк завершен, False - в противном случае
+        """
+        if self.player_1_score == 7 and self.player_2_score <= 5:
+            self.player_1_win_game = True
+            return True
+        elif self.player_2_score == 7 and self.player_1_score <= 5:
+            self.player_2_win_game = True
+            return True
+        elif self.player_1_score >= 6 and self.player_1_score - self.player_2_score == 2:
+            self.player_1_win_game = True
+            return True
+        elif self.player_2_score >= 6 and self.player_2_score - self.player_1_score == 2:
+            self.player_2_win_game = True
+            return True
+        else:
+            return False
+
+    def set_game_score(self):
+        """
+        Метод для изменения данных теннисного счета в тай-брейке
+        Данные берет из параметров self.player_1_score и self.player_2_score
+        И меняет данные в словаре self.result_game_score
+        :return: None
+        """
+        self.result_game_score = {"player_1": self.player_1_score, "player_2": self.player_2_score}
+
+
+# это строчки для теста класса TennisGame !!!
+
+# game = TennisGame()
 # while not game.check_end_game():
-#     game.show_score()
+#     game.show_game_score()
 #     player = input("введите номер игрока 1 или 2: ")
 #     game.add_point(player)
 #     game.set_game_score()
 #
-# game.show_score()
-# print(f"Победил игрок_1: {game.player_1_win}")
-# print(f"Победил игрок_2: {game.player_2_win}")
-# это строчки для теста класса гейм !!!
+# game.show_game_score()
+# print(f"Победил игрок_1: {game.player_1_win_game}")
+# print(f"Победил игрок_2: {game.player_2_win_game}")
+
+
+# это строчки для теста класса TennisGameTieBreak гейм тай-брейк !!!
+
+# game = TennisGameTieBreak()
+# while not game.check_end_game():
+#     game.show_game_score()
+#     player = input("введите номер игрока 1 или 2: ")
+#     game.add_point(player)
+#     game.set_game_score()
+#
+# game.show_game_score()
+# print(f"Победил игрок_1: {game.player_1_win_game}")
+# print(f"Победил игрок_2: {game.player_2_win_game}")
