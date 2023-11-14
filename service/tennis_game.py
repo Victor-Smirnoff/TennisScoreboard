@@ -15,15 +15,10 @@ class TennisGame:
         :param player: номер игрока цифра int 1 или 2
         :return: None
         """
-        try:
-            if int(player) == 1:
-                self.player_1_score += 1
-            elif int(player) == 2:
-                self.player_2_score += 1
-            else:
-                raise ValueError("Номер игрока должен быть числом 1 или 2")
-        except Exception as e:
-            print(e)
+        if int(player) == 1:
+            self.player_1_score += 1
+        elif int(player) == 2:
+            self.player_2_score += 1
 
     def check_end_game(self):
         """
