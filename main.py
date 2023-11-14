@@ -8,7 +8,7 @@ def process_http_request(environ, start_response):
     if environ["PATH_INFO"] == "/":
         with open("view/pages/index.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
-    elif environ["PATH_INFO"] == "/new-match/":
+    elif environ["PATH_INFO"] == "/new-match":
         with open("view/pages/new-match.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
     else:
