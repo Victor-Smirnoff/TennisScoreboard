@@ -18,3 +18,4 @@ class Test_tennis_set(unittest.TestCase):
         tennis_set.update_result_set_score()
         self.assertEqual({"player_1": 6, "player_2": 6}, tennis_set.result_set_score)
         self.assertEqual(type(tennis_set.game_dict[13]), TennisGameTieBreak)
+        self.assertEqual(tennis_set.check_end_set(), False)
