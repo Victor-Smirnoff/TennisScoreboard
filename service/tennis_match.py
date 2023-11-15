@@ -55,7 +55,7 @@ class TennisMatch:
         print(self.result_match_score)
 
 
-# это строчки для теста класса TennisMatch !!!
+# это строчки для запуска класса TennisMatch и проведения одного матча!!!
 
 # tennis_match = TennisMatch()
 # while not tennis_match.check_end_match():

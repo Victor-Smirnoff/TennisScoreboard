@@ -111,7 +111,7 @@ class TennisGameTieBreak(TennisGame):
         self.result_game_score = {"player_1": self.player_1_score, "player_2": self.player_2_score}
 
 
-# это строчки для теста класса TennisGame !!!
+# это строчки для запуска класса TennisGame и проведения одного гейма !!!
 
 # game = TennisGame()
 # while not game.check_end_game():
@@ -125,7 +125,7 @@ class TennisGameTieBreak(TennisGame):
 # print(f"Победил игрок_2: {game.player_2_win_game}")
 
 
-# это строчки для теста класса TennisGameTieBreak гейм тай-брейк !!!
+# это строчки для запуска класса TennisGameTieBreak гейм тай-брейк и проведения одного гейма!!!
 
 # game = TennisGameTieBreak()
 # while not game.check_end_game():

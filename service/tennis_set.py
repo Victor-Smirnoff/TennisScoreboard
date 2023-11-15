@@ -63,7 +63,7 @@ class TennisSet:
         print(self.result_set_score)
 
 
-# это строчки для теста класса TennisSet !!!
+# это строчки для запуска класса TennisSet и проведения одного сета!!!
 
 # tennis_set = TennisSet()
 # while not tennis_set.check_end_set():
