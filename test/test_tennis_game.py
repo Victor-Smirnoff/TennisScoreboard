@@ -2,7 +2,7 @@ import unittest
 from service.tennis_game import TennisGame, TennisGameTieBreak
 
 
-class Test_TennisGame(unittest.TestCase):
+class Test_tennis_game(unittest.TestCase):
     """
     Класс для тестирования функций класса TennisGame и TennisGameTieBreak
     """

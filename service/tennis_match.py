@@ -1,4 +1,4 @@
-from tennis_set import TennisSet
+from service.tennis_set import TennisSet
 
 
 class TennisMatch:

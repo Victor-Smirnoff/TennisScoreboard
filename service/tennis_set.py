@@ -1,4 +1,4 @@
-from tennis_game import TennisGame, TennisGameTieBreak
+from service.tennis_game import TennisGame, TennisGameTieBreak
 
 
 class TennisSet:
