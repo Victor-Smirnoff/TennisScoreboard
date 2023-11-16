@@ -80,3 +80,22 @@ p {
     margin-right: 80px;
     margin-left: 80px;
 }
+
+.container {
+    display: flex;
+}
+
+.item {
+    padding: 40px;
+    font-size: 25px;
+    border: 1px solid red
+}
+.item_1 {
+
+}
+.item_2 {
+
+}
+.item_2 {
+
+}
