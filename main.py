@@ -11,12 +11,13 @@ def process_http_request(environ, start_response):
     elif environ["PATH_INFO"] == "/new-match":
         with open("view/pages/new-match.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
-    elif environ["PATH_INFO"] == "/flex":
-        with open("view/pages/index_flex.html", "r", encoding="UTF-8") as file:
+    elif environ["PATH_INFO"] == "/match-score":
+        with open("view/pages/match-score.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
     else:
         status = "400"
-        HTML = "Страница не найдена"
+        with open("view/pages/not_found.html", "r", encoding="UTF-8") as file:
+            HTML = file.read()
 
     response_headers = [("Content-type", "text/html; charset=utf-8"), ]
     start_response(status, response_headers)

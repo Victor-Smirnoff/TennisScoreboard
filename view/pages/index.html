@@ -11,15 +11,28 @@
 </head>
 
 <body>
-<h1>
-    <p>Проект TennisScoreboard</p>
-    <p>Табло теннисного матча</p>
-</h1>
 
-<div id="my-button">
-    <button class="custom-button" onclick = "window.location.href = 'new-match';" title="Нажмите чтобы начать новый матч">Начать новый матч</button>
-    <button class="custom-button" title="Нажмите чтобы посмотреть все матчи">Посмотреть все матчи</button>
-</div>
+    <div class="container">
+        <div class="item item_left" style="display: flex; justify-content: center; align-items: center;">
+            <a href="/"><img src="images/ball.png" alt="Главная страница" height="100px" width="100px" title="Главная страница"></a>
+        </div>
+        <div class="item item_center">
+            <h1>
+                <p>Проект TennisScoreboard</p>
+                <p>Табло теннисного матча</p>
+            </h1>
+        </div>
+        <div class="item item_right"></div>
+    </div>
+
+    <div class="container">
+        <div class="item item_left"></div>
+        <div class="item item_center" style="display: flex; justify-content: center; align-items: center;">
+            <button class="custom-button" onclick = "window.location.href = 'new-match';" title="Нажмите чтобы начать новый матч">Начать новый матч</button>
+            <button class="custom-button" title="Нажмите чтобы посмотреть все матчи">Посмотреть все матчи</button>
+        </div>
+        <div class="item item_right"></div>
+    </div>
 
 </body>
 

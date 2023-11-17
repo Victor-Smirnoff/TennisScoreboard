@@ -11,24 +11,41 @@
 </head>
 
 <body>
-    <h1>
-        <p>Проект TennisScoreboard</p>
-        <p>Табло теннисного матча</p>
-    </h1>
 
-    <div class="nav-conteiner">
-        <p class="p-text">Имя игрока 1</p>
-        <p class="p-text">Имя игрока 2</p>
+    <div class="container">
+        <div class="item item_left" style="display: flex; justify-content: center; align-items: center;">
+            <a href="/"><img src="images/ball.png" alt="Главная страница" height="100px" width="100px" title="Главная страница"></a>
+        </div>
+        <div class="item item_center">
+            <h1>
+                <p>Проект TennisScoreboard</p>
+                <p>Табло теннисного матча</p>
+            </h1>
+        </div>
+        <div class="item item_right"></div>
     </div>
 
-    <div class="nav-conteiner">
-        <input class="input-custom" type="text" placeholder="введите имя игрока 1">
-        <input class="input-custom" type="text" placeholder="введите имя игрока 2">
-    </div>
-    <div id="my-button">
-        <button class="custom-button" title="Нажмите чтобы начать новый матч">Начать</button>
-    </div>
+    <div class="container">
+        <div class="item item_left"></div>
+        <div class="item item_center">
 
+            <div class="nav-conteiner">
+                <p class="p-text">Имя игрока 1</p>
+                <p class="p-text">Имя игрока 2</p>
+            </div>
+
+            <div class="nav-conteiner">
+                <input class="input-custom" type="text" placeholder="введите имя игрока 1">
+                <input class="input-custom" type="text" placeholder="введите имя игрока 2">
+            </div>
+
+                <div id="my-button">
+                    <button class="custom-button" onclick = "window.location.href = 'match-score';" title="Нажмите чтобы начать новый матч">Начать</button>
+                </div>
+
+        </div>
+        <div class="item item_right"></div>
+    </div>
 
 </body>
 

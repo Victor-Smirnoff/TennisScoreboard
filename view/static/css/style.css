@@ -51,7 +51,7 @@ p {
 
 .nav-conteiner {
     overflow: hidden;
-    margin-top: 40px;
+    margin-top: 10px;
     justify-content: center; /* Выравнивание кнопок по центру горизонтально */
     display: flex;
 }
@@ -83,19 +83,26 @@ p {
 
 .container {
     display: flex;
+    width: 100%;
 }
 
 .item {
-    padding: 40px;
-    font-size: 25px;
-    border: 1px solid red
-}
-.item_1 {
+    padding: 0;
+    font-size: 40px;
+    border: 1px solid red;
+    min-height: 150px;
+
 
 }
-.item_2 {
+.item_left {
+    width: 150px;
 
 }
-.item_2 {
+.item_center {
+    flex-grow: 1;
+}
+.item_right {
+    width: 150px;
 
 }
+
