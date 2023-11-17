@@ -7,3 +7,6 @@
 ## Для успешного запуска приложения:
 
 Запустить и кайфануть.
+
+## License
+TennisScoreboard is licensed under the MIT license. (http://opensource.org/licenses/MIT)
