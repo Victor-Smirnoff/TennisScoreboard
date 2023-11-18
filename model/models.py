@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import ForeignKey, Index
 import uuid
-from database import Base, str_50, str_250
+from model.database import Base, str_50, str_250
 from typing import Annotated
 
 
