@@ -24,7 +24,7 @@ def insert_data_players():
     Данные берутся из файла ATP_Rankings.txt - это 100 лучших теннисистов на текущий момент по рейтингу ATP
     :return: None
     """
-    with open("ATP_Rankings.txt", "r", encoding="UTF-8") as file:
+    with open("static_data/ATP_Rankings.txt", "r", encoding="UTF-8") as file:
         tennis_players_lst = [name.strip() for name in file.readlines()]
     tennis_players = [PlayersOrm(name=player) for player in tennis_players_lst]
     with session_factory() as session:
@@ -36,7 +36,7 @@ def insert_data_matches():
     Метод добавляет сыгранные матчи из файла matches.csv - это рандомно написанные матчи, лишь бы было наполнение
     :return: None
     """
-    with open("matches.csv", "r", encoding="UTF-8") as file:
+    with open("static_data/matches.csv", "r", encoding="UTF-8") as file:
         matches_lst = [name.strip().split(";") for name in file.readlines()][1:]
         matches_lst = [[int(match[0]), int(match[1]), int(match[2]), match[3]] for match in matches_lst]
     tennis_matches = [MatchesOrm(player1=player1, player2=player2, winner=winner, score=score) for player1, player2, winner, score in matches_lst]
