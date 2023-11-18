@@ -9,7 +9,7 @@ int_pk_ai = Annotated[int, mapped_column(primary_key=True, autoincrement=True)] 
 player_id = Annotated[int, mapped_column(ForeignKey("players.ID", ondelete="CASCADE"))]     # тип данных int ForeignKey для players.ID
 
 
-class PlayersOrm(Base):
+class PlayerOrm(Base):
     """
     Класс, представляющий таблицу players в SQLAlchemy
     """
@@ -18,10 +18,10 @@ class PlayersOrm(Base):
     ID: Mapped[int_pk_ai]
     name: Mapped[str_50] = mapped_column(nullable=False)
 
-name_index = Index("name_index", PlayersOrm.name)
+name_index = Index("name_index", PlayerOrm.name)
 
 
-class MatchesOrm(Base):
+class MatchOrm(Base):
     """
     Класс, представляющий таблицу matches в SQLAlchemy
     """

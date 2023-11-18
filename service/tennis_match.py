@@ -1,4 +1,5 @@
 from service.tennis_set import TennisSet
+import uuid
 
 
 class TennisMatch:
@@ -12,6 +13,7 @@ class TennisMatch:
         self.player_1_score = 0
         self.player_2_score = 0
         self.result_match_score = {"player_1": 0, "player_2": 0}
+        self.match_uuid = uuid.uuid4()
 
     def add_point(self, player: int):
         """
