@@ -4,6 +4,7 @@
 
 from model.database import Base, engine, session_factory
 from model.models import PlayerOrm, MatchOrm
+import uuid
 
 
 def create_tables():
@@ -39,7 +40,7 @@ def insert_data_matches():
     with open("static_data/matches.csv", "r", encoding="UTF-8") as file:
         matches_lst = [name.strip().split(";") for name in file.readlines()][1:]
         matches_lst = [[int(match[0]), int(match[1]), int(match[2]), match[3]] for match in matches_lst]
-    tennis_matches = [MatchOrm(player1=player1, player2=player2, winner=winner, score=score) for player1, player2, winner, score in matches_lst]
+    tennis_matches = [MatchOrm(UUID=str(uuid.uuid4()), player1=player1, player2=player2, winner=winner, score=score) for player1, player2, winner, score in matches_lst]
     with session_factory() as session:
         session.add_all(tennis_matches)
         session.commit()

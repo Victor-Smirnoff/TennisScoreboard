@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import ForeignKey, Index
-import uuid
 from model.database import Base, str_50, str_250
 from typing import Annotated
 
@@ -28,7 +27,7 @@ class MatchOrm(Base):
     __tablename__ = "matches"
 
     ID: Mapped[int_pk_ai]
-    UUID: Mapped[str_250] = mapped_column(default=uuid.uuid4, unique=True, nullable=False)
+    UUID: Mapped[str_250] = mapped_column(unique=True, nullable=False)
     player1: Mapped[player_id]
     player2: Mapped[player_id]
     winner: Mapped[player_id]

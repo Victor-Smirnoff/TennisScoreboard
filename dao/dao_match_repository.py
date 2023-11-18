@@ -34,7 +34,7 @@ class DaoMatchRepository(MatchRepository):
         :param score: JSON представление объекта с текущим счётом в матче
         :return: объект класса MatchOrm с данными из БД (данные которые были добавлены в БД)
         """
-        new_match = MatchOrm(player1=player1, player2=player2, winner=winner, score=score)
+        new_match = MatchOrm(UUID=UUID, player1=player1, player2=player2, winner=winner, score=score)
         with session_factory() as session:
             session.add(new_match)
             session.commit()
