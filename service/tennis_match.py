@@ -6,7 +6,11 @@ class TennisMatch:
     """
     Класс описывает сущность теннисного матча
     """
-    def __init__(self):
+    def __init__(self, player_1_ID, player_1_name, player_2_ID, player_2_name):
+        self.player_1_ID = player_1_ID
+        self.player_1_name = player_1_name
+        self.player_2_ID = player_2_ID
+        self.player_2_name = player_2_name
         self.set_dict = {tennis_set: TennisSet() for tennis_set in range(1, 4)}
         self.player_1_win_match = False
         self.player_2_win_match = False

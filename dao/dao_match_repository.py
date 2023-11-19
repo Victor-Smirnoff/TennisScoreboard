@@ -79,3 +79,21 @@ class DaoMatchRepository(MatchRepository):
             return player.ID
         else:
             return None
+
+    def find_match_from_uuid(self, match_uuid):
+        """
+        Метод возвращает объект класса матч MatchOrm по его uuid
+        :param match_uuid: Уникальный айди матча
+        :return: объект класса MatchOrm
+        """
+        # в этом коде пересмотреть вызываемые методы и их результаты
+        # после выхода из контекстного менеджера with происходит закрытие сессии
+        # и обратиться к атрибутам объекта становится невозможно
+        # требуется как-то решить эту проблему, так как мне нужны данные для view
+        # возможно пересмотреть методы scalars() и first()
+        with session_factory() as session:
+            query = select(MatchOrm).filter_by(UUID=match_uuid)
+            result = session.execute(query)
+            new_match = result.scalars().first()
+
+        return new_match
