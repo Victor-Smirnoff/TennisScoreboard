@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import ForeignKey, Index
+from sqlalchemy import ForeignKey
 from model.database import Base, str_50, str_250
 from typing import Annotated
 
