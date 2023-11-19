@@ -21,7 +21,7 @@ class DaoPlayerRepository(PlayerRepository):
             session.add(new_player)
             session.commit()
 
-        return new_player
+        return self.find_by_name(name)
 
     def find_by_name(self, name):
         """

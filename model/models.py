@@ -15,9 +15,7 @@ class PlayerOrm(Base):
     __tablename__ = "players"
 
     ID: Mapped[int_pk_ai]
-    name: Mapped[str_50] = mapped_column(nullable=False)
-
-name_index = Index("name_index", PlayerOrm.name)
+    name: Mapped[str_50] = mapped_column(nullable=False, unique=True, index=True)
 
 
 class MatchOrm(Base):
