@@ -20,7 +20,7 @@ class Repository:
         """
         raise NotImplementedError
 
-    def save(self):
+    def save_to_database(self):
         """
         Метод для сохранения (добавления) данных в БД
         Это метод Create	INSERT

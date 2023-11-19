@@ -68,12 +68,12 @@ class MatchService:
 
         winner = player_1_ID if tennis_match.player_1_win_match else player_2_ID
 
-        new_match = dao_obj.save(UUID=tennis_match.match_uuid,
-                     player1=player_1_ID,
-                     player2=player_2_ID,
-                     winner=winner,
-                     score=str(tennis_match.result_match_score)
-                     )
+        new_match = dao_obj.save_to_database(UUID=tennis_match.match_uuid,
+                                             player1=player_1_ID,
+                                             player2=player_2_ID,
+                                             winner=winner,
+                                             score=str(tennis_match.result_match_score)
+                                             )
 
         # здесь тоже пересмотреть что выводится в return
         # почему-то доступа к объекту класса MatchOrm нет

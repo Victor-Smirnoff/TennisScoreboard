@@ -46,5 +46,5 @@ class PlayerService:
         if player:
             return player
         else:
-            player = dao_obj.save(player_name)
+            player = dao_obj.save_to_database(player_name)
             return player

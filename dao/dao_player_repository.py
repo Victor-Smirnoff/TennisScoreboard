@@ -9,7 +9,7 @@ class DaoPlayerRepository(PlayerRepository):
     Класс для выполнения действий над таблицей players
     """
 
-    def save(self, name):
+    def save_to_database(self, name):
         """
         Метод для сохранения (добавления) данных в БД
         Это метод Create	INSERT

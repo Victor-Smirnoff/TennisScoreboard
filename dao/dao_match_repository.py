@@ -23,7 +23,8 @@ class DaoMatchRepository(MatchRepository):
 
         return finished_all_mathches
 
-    def save(self, UUID, player1, player2, winner, score):
+    @staticmethod
+    def save_to_database(UUID, player1, player2, winner, score):
         """
         Метод для сохранения (добавления) данных в БД
         Это метод Create	INSERT
