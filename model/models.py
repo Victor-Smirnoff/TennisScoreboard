@@ -17,6 +17,9 @@ class PlayerOrm(Base):
     ID: Mapped[int_pk_ai]
     name: Mapped[str_50] = mapped_column(nullable=False, unique=True, index=True)
 
+    def __str__(self):
+        return f"PlayerOrm(ID={self.ID}, name={self.name})"
+
 
 class MatchOrm(Base):
     """
@@ -30,3 +33,6 @@ class MatchOrm(Base):
     player2: Mapped[player_id]
     winner: Mapped[player_id]
     score: Mapped[str_250] = mapped_column(nullable=False)
+
+    def __str__(self):
+        return f"MatchOrm(ID={self.ID}, UUID={self.UUID}, player1={self.player1}, player1={self.player2}, winner={self.winner}, score={self.score})"
