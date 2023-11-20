@@ -1,4 +1,3 @@
-import uuid
 from sqlalchemy import select, or_
 from dao.match_repository import MatchRepository
 from model.database import session_factory
@@ -23,8 +22,7 @@ class DaoMatchRepository(MatchRepository):
 
         return finished_all_mathches
 
-    @staticmethod
-    def save_to_database(UUID, player1, player2, winner, score):
+    def save_to_database(self, UUID, player1, player2, winner, score):
         """
         Метод для сохранения (добавления) данных в БД
         Это метод Create	INSERT
@@ -40,7 +38,7 @@ class DaoMatchRepository(MatchRepository):
             session.add(new_match)
             session.commit()
 
-        return new_match
+        return self.find_match_from_uuid(UUID)
 
     def find_by_name(self, name):
         """
@@ -87,11 +85,6 @@ class DaoMatchRepository(MatchRepository):
         :param match_uuid: Уникальный айди матча
         :return: объект класса MatchOrm
         """
-        # в этом коде пересмотреть вызываемые методы и их результаты
-        # после выхода из контекстного менеджера with происходит закрытие сессии
-        # и обратиться к атрибутам объекта становится невозможно
-        # требуется как-то решить эту проблему, так как мне нужны данные для view
-        # возможно пересмотреть методы scalars() и first()
         with session_factory() as session:
             query = select(MatchOrm).filter_by(UUID=match_uuid)
             result = session.execute(query)

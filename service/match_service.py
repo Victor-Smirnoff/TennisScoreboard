@@ -1,6 +1,5 @@
 from dao.dao_match_repository import DaoMatchRepository
 from service.tennis_match import TennisMatch
-from service.player_service import PlayerService
 
 
 class MatchService:
@@ -75,16 +74,12 @@ class MatchService:
                                              score=str(tennis_match.result_match_score)
                                              )
 
-        # здесь тоже пересмотреть что выводится в return
-        # почему-то доступа к объекту класса MatchOrm нет
-        # или самого объекта класса MatchOrm нет
-        # разобраться с этим!
-        return dao_obj.find_match_from_uuid(tennis_match.match_uuid)
+        return new_match
 
 
 # строчки для теста этого сервиса
-player_service = PlayerService("Илья Ивашка", "Vasa Pupkin")
-player_1, player_2 = player_service.get_two_players()
-match_service = MatchService(player_1, player_2)
-new_match = match_service.perform_match()
-print(new_match)
+# player_service = PlayerService("Илья Ивашка", "Vasa Pupkin")
+# player_1, player_2 = player_service.get_two_players()
+# match_service = MatchService(player_1, player_2)
+# new_match = match_service.perform_match()
+# print(new_match)
