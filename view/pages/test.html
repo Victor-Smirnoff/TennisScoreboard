@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <base href="/">
+    <title>TennisScoreboard by Victor Smirnov</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link type="text/css" href="css/style.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="item item_left" style="display: flex; justify-content: center; align-items: center;">
+            <a href="/"><img src="images/ball.png" alt="Главная страница" height="100px" width="100px" title="Главная страница"></a>
+        </div>
+        <div class="item item_center">
+            <h1>
+                <p>Проект TennisScoreboard</p>
+                <p>Табло теннисного матча</p>
+            </h1>
+        </div>
+        <div class="item item_right"></div>
+    </div>
+
+    <div class="container">
+        <div class="item item_left"></div>
+        <div class="item item_center" style="display: flex; justify-content: center; align-items: center;">
+
+        <form action="/my_post" method="post">
+            <label for="player_1_name">Имя игрока 1:</label>
+            <input type="text" id="player_1_name" name="player_1_name"><br><br>
+
+            <label for="player_2_name">Имя игрока 2:</label>
+            <input type="text" id="player_2_name" name="player_2_name"><br><br>
+
+            <input type="submit" value="Отправить">
+        </form>
+
+        </div>
+        <div class="item item_right"></div>
+    </div>
+
+</body>
+
+</html>

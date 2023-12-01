@@ -5,10 +5,10 @@ from whitenoise import WhiteNoise
 def process_http_request(environ, start_response):
     status = "200 OK"
 
-    if environ["PATH_INFO"] == "/":
+    if environ["PATH_INFO"] == "/" and environ["REQUEST_METHOD"] == "GET":
         with open("view/pages/index.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
-    elif environ["PATH_INFO"] == "/new-match":
+    elif environ["PATH_INFO"] == "/new-match" and environ["REQUEST_METHOD"] == "GET":
         with open("view/pages/new-match.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
     elif environ["PATH_INFO"] == "/match-score":

@@ -29,19 +29,33 @@
         <div class="item item_left"></div>
         <div class="item item_center">
 
-            <div class="nav-conteiner">
-                <p class="p-text">Имя игрока 1</p>
-                <p class="p-text">Имя игрока 2</p>
-            </div>
-
-            <div class="nav-conteiner">
-                <input class="input-custom" type="text" placeholder="введите имя игрока 1">
-                <input class="input-custom" type="text" placeholder="введите имя игрока 2">
-            </div>
-
-                <div id="my-button">
-                    <button class="custom-button" onclick = "window.location.href = 'match-score';" title="Нажмите чтобы начать новый матч">Начать</button>
+            <form action="/new-match" method="post">
+                <div class="nav-conteiner">
+                    <label class="p-text" for="player_1_name">Имя игрока 1:</label>
+                    <input class="input-custom" type="text" id="player_1_name" name="player_1_name" placeholder="введите имя игрока 1"><br>
+                    <label class="p-text" for="player_2_name">Имя игрока 2:</label>
+                    <input class="input-custom" type="text" id="player_2_name" name="player_2_name" placeholder="введите имя игрока 2"><br>
                 </div>
+                <div id="my-button">
+                    <button class="custom-button" type="submit" title="Нажмите чтобы начать новый матч">Начать</button>
+                </div>
+            </form>
+
+
+
+<!--            <div class="nav-conteiner">-->
+<!--                <p class="p-text">Имя игрока 1</p>-->
+<!--                <p class="p-text">Имя игрока 2</p>-->
+<!--            </div>-->
+
+<!--            <div class="nav-conteiner">-->
+<!--                <input class="input-custom" type="text" placeholder="введите имя игрока 1">-->
+<!--                <input class="input-custom" type="text" placeholder="введите имя игрока 2">-->
+<!--            </div>-->
+
+<!--                <div id="my-button">-->
+<!--                    <button class="custom-button" onclick = "window.location.href = '/new-match';" title="Нажмите чтобы начать новый матч">Начать</button>-->
+<!--                </div>-->
 
         </div>
         <div class="item item_right"></div>
