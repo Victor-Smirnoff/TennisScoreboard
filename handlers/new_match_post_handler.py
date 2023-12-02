@@ -1,4 +1,6 @@
 from re import fullmatch
+from jinja2 import Template
+
 
 
 class NewMatchPostHandler:
@@ -24,7 +26,22 @@ class NewMatchPostHandler:
         :param player_2_name: имя игрока 2
         :return: возвращаем HTML страницу
         """
+        if not self.is_correct_player_name(player_1_name) or not self.is_correct_player_name(player_2_name) or player_1_name == player_2_name:
+            with open("view/pages/new-match-incorrect.html", "r", encoding="UTF-8") as file:
+                HTML = file.read()
 
+                # error_message = ""
+                #
+                # tm = Template(HTML)
+                # result_HTML = tm.render(error_message=error_message)
+                #
+                # return result_HTML
+                return HTML
+
+        else:
+            with open("view/pages/match-score.html", "r", encoding="UTF-8") as file:
+                HTML = file.read()
+                return HTML
 
     def is_correct_player_name(self, player_name: str) -> bool:
         """
@@ -33,20 +50,3 @@ class NewMatchPostHandler:
         :return: bool True - если имя корректное, False - имя не корректное
         """
         return True if fullmatch(r"^[a-zA-Zа-яА-ЯёЁ ]+$", player_name) else False
-
-
-# test_obj = NewMatchPostHandler()
-# print(test_obj.is_correct_player_name(""))
-# print(test_obj.is_correct_player_name("_"))
-# print(test_obj.is_correct_player_name("123124"))
-# print(test_obj.is_correct_player_name("паса2"))
-# print(test_obj.is_correct_player_name("паса2Vasa"))
-# print(test_obj.is_correct_player_name("2Vasa"))
-# print(test_obj.is_correct_player_name("Vasa 531"))
-#
-# print(test_obj.is_correct_player_name("Vasa"))
-# print(test_obj.is_correct_player_name("vasa"))
-# print(test_obj.is_correct_player_name("Васа"))
-# print(test_obj.is_correct_player_name("паса"))
-# print(test_obj.is_correct_player_name("паса васа"))
-# print(test_obj.is_correct_player_name("паса васа тык"))

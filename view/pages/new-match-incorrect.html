@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <base href="/">
+    <title>TennisScoreboard by Victor Smirnov</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link type="text/css" href="css/style.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="item item_left" style="display: flex; justify-content: center; align-items: center;">
+            <a href="/"><img src="images/ball.png" alt="Главная страница" height="100px" width="100px" title="Главная страница"></a>
+        </div>
+        <div class="item item_center">
+            <h1>
+                <p>Проект TennisScoreboard</p>
+                <p>Табло теннисного матча</p>
+            </h1>
+        </div>
+        <div class="item item_right"></div>
+    </div>
+
+    <div class="container">
+        <div class="item item_left"></div>
+        <div class="item item_center">
+
+            <form action="/new-match" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="nav-conteiner">
+                    <label class="p-text" for="player_1_name">Имя игрока 1:</label>
+                    <input class="input-custom" type="text" id="player_1_name" name="player_1_name" placeholder="введите имя игрока 1"><br>
+                    <label class="p-text" for="player_2_name">Имя игрока 2:</label>
+                    <input class="input-custom" type="text" id="player_2_name" name="player_2_name" placeholder="введите имя игрока 2"><br>
+                </div>
+
+                <div>
+                    <p class="p-text">{{ error_message }}</p>
+                </div>
+
+                <div id="my-button">
+                    <button class="custom-button" type="submit" title="Нажмите чтобы начать новый матч">Начать</button>
+                </div>
+            </form>
+
+
+
+<!--            <div class="nav-conteiner">-->
+<!--                <p class="p-text">Имя игрока 1</p>-->
+<!--                <p class="p-text">Имя игрока 2</p>-->
+<!--            </div>-->
+
+<!--            <div class="nav-conteiner">-->
+<!--                <input class="input-custom" type="text" placeholder="введите имя игрока 1">-->
+<!--                <input class="input-custom" type="text" placeholder="введите имя игрока 2">-->
+<!--            </div>-->
+
+<!--                <div id="my-button">-->
+<!--                    <button class="custom-button" onclick = "window.location.href = '/new-match';" title="Нажмите чтобы начать новый матч">Начать</button>-->
+<!--                </div>-->
+
+        </div>
+        <div class="item item_right"></div>
+    </div>
+
+</body>
+
+</html>
