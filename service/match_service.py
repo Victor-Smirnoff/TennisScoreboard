@@ -5,7 +5,7 @@ from service.tennis_match import TennisMatch
 class MatchService:
     """
     Класс для проведения матча
-    Объект класс создает объект класса TennisMatch и проводит этот матч
+    Объект класса MatchService создает объект класса TennisMatch и проводит этот матч
     По завершении матча записывает его в БД в таблицу matches
 
     Для проведения матча необходимо создать объект класса MatchService
@@ -14,7 +14,7 @@ class MatchService:
 
     def __init__(self, player_1, player_2):
         """
-        Инифиализатор класса MatchService
+        Инициализатор класса MatchService
         :param player_1: объект класса PlayerOrm для игрока 1
         :param player_2: объект класса PlayerOrm для игрока 2
         """
