@@ -1,7 +1,10 @@
 from waitress import serve
 from whitenoise import WhiteNoise
-from handlers.new_match_handler import NewMatchHandler
+from handlers.new_match_post_handler import NewMatchPostHandler
 from handlers.index_handler import IndexHandler
+from handlers.new_match_get_handler import NewMatchGetHandler
+
+
 
 
 def process_http_request(environ, start_response):
@@ -12,8 +15,9 @@ def process_http_request(environ, start_response):
         HTML = handler()
 
     elif environ["PATH_INFO"] == "/new-match" and environ["REQUEST_METHOD"] == "GET":
-        with open("view/pages/new-match.html", "r", encoding="UTF-8") as file:
-            HTML = file.read()
+        handler = NewMatchGetHandler()
+        HTML = handler()
+
     elif environ["PATH_INFO"] == "/new-match" and environ["REQUEST_METHOD"] == "POST":
         pass
 

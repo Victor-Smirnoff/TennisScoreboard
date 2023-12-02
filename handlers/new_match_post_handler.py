@@ -1,7 +1,7 @@
 from re import fullmatch
 
 
-class NewMatchHandler:
+class NewMatchPostHandler:
     """
     Класс для обработки поступающих данных на странице '/new-match'
     Проверяет что записи Имя игрока 1 и Имя игрока 2 не пустые
@@ -19,7 +19,7 @@ class NewMatchHandler:
 
     def __call__(self, player_1_name, player_2_name):
         """
-        Метод для вызова объекта класса NewMatchHandler
+        Метод для вызова объекта класса NewMatchPostHandler
         :param player_1_name: имя игрока 1
         :param player_2_name: имя игрока 2
         :return: возвращаем HTML страницу
@@ -35,7 +35,7 @@ class NewMatchHandler:
         return True if fullmatch(r"^[a-zA-Zа-яА-ЯёЁ ]+$", player_name) else False
 
 
-# test_obj = NewMatchHandler()
+# test_obj = NewMatchPostHandler()
 # print(test_obj.is_correct_player_name(""))
 # print(test_obj.is_correct_player_name("_"))
 # print(test_obj.is_correct_player_name("123124"))
