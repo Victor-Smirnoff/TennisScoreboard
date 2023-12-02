@@ -1,14 +1,16 @@
 from waitress import serve
 from whitenoise import WhiteNoise
 from handlers.new_match_handler import NewMatchHandler
+from handlers.index_handler import IndexHandler
 
 
 def process_http_request(environ, start_response):
     status = "200 OK"
 
     if environ["PATH_INFO"] == "/" and environ["REQUEST_METHOD"] == "GET":
-        with open("view/pages/index.html", "r", encoding="UTF-8") as file:
-            HTML = file.read()
+        handler = IndexHandler()
+        HTML = handler()
+
     elif environ["PATH_INFO"] == "/new-match" and environ["REQUEST_METHOD"] == "GET":
         with open("view/pages/new-match.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
