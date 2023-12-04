@@ -54,7 +54,6 @@ class NewMatchPostHandler:
                                        player_2_ID=player_2_ID,
                                        player_2_name=player_2_name
                                        )
-            MatchService.CURRENT_MATCHES[tennis_match.match_uuid] = tennis_match
             return tennis_match
 
     def is_correct_player_name(self, player_name: str) -> bool:

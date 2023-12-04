@@ -11,31 +11,12 @@ class MatchService:
     И вызвать метод perform_match, в который будут передавать результаты POST запросов
     """
 
-    CURRENT_MATCHES = {} # Коллекция текущих матчей. Сюда будем складывать объекты класса TennisMatch
-
     def __init__(self, tennis_match):
         """
         Инициализатор класса MatchService
         :param tennis_match: объект класса TennisMatch
         """
         self.tennis_match = tennis_match
-        self.add_match()
-
-    def add_match(self):
-        """
-        Метод добавляет новый матч в коллекцию CURRENT_MATCHES
-        :return: None
-        """
-        uuid = self.tennis_match.match_uuid
-        self.CURRENT_MATCHES[uuid] = self.tennis_match
-
-    def remove_match(self):
-        """
-        Метод удаляет матч из коллекции CURRENT_MATCHES
-        :return: None
-        """
-        uuid = self.tennis_match.match_uuid
-        del self.CURRENT_MATCHES[uuid]
 
     def perform_match(self):
         """
@@ -72,7 +53,6 @@ class MatchService:
                 self.tennis_match.show_match_score()
 
         winner = self.tennis_match.player_1_ID if self.tennis_match.player_1_win_match else self.tennis_match.player_2_ID
-        self.remove_match()
 
         dao_obj = DaoMatchRepository()
         new_match = dao_obj.save_to_database(UUID=self.tennis_match.match_uuid,
