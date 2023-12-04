@@ -28,10 +28,75 @@
     <div class="container">
         <div class="item item_left"></div>
         <div class="item item_center">
-            <h1>
-                <p>Таблица с именами игроков, текущим счётом</p>
-                <p>Вся эта страница будет наполняться от объекта класса Match</p>
-            </h1>
+
+	        <div class="table">
+
+              <div class="row">
+                <div class="cell"><h4>игрок 1</h4></div>
+                <div class="cell"></div>
+                <div class="cell"><h4>игрок 2</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>имя 1</h4></div>
+                <div class="cell"></div>
+                <div class="cell"><h4>имя 2</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>0</h4></div>
+                <div class="cell"><h4>матч</h4></div>
+                <div class="cell"><h4>0</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>0</h4></div>
+                <div class="cell"><h4>1-й сет</h4></div>
+                <div class="cell"><h4>0</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>0</h4></div>
+                <div class="cell"><h4>2-й сет</h4></div>
+                <div class="cell"><h4>0</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>0</h4></div>
+                <div class="cell"><h4>3-й сет</h4></div>
+                <div class="cell"><h4>0</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>0</h4></div>
+                <div class="cell"><h4>гейм</h4></div>
+                <div class="cell"><h4>0</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell"><h4>0</h4></div>
+                <div class="cell"><h4>очки гейма</h4></div>
+                <div class="cell"><h4>0</h4></div>
+              </div>
+
+              <div class="row">
+                <div class="cell">
+                    <form action="/match-score" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="player_win_game" value="1">
+                        <button class="custom-button" type="submit" title="Нажмите если игрок 1 выиграл текущее очко">игрок 1 выиграл текущее очко</button>
+                    </form>
+                </div>
+                <div class="cell"></div>
+                <div class="cell">
+                    <form action="/match-score" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="player_win_game" value="2">
+                        <button class="custom-button" type="submit" title="Нажмите если игрок 2 выиграл текущее очко">игрок 2 выиграл текущее очко</button>
+                    </form>
+                </div>
+              </div>
+
+            </div>
+
         </div>
         <div class="item item_right"></div>
     </div>

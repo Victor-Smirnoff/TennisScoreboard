@@ -106,3 +106,36 @@ p {
 
 }
 
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  flex: 1;
+  min-height: 50px;
+  width: 33.33%;
+  border: 1px solid #b9b9b9; /* Добавлено для наглядности */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h4 {
+  margin: 0; /* Убираем внешние отступы */
+  text-align: center; /* Выравниваем по центру по горизонтали */
+  line-height: inherit; /* Выравниваем по центру по вертикали */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Lucida Sans Unicode;
+  color: #a8ac89;
+  font-size: 18px;
+}
