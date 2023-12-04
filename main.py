@@ -6,7 +6,7 @@ from webob import Response
 from handlers.index_handler import IndexHandler
 from handlers.new_match_get_handler import NewMatchGetHandler
 from handlers.new_match_post_handler import NewMatchPostHandler
-
+from handlers.match_score_get_handler import MatchScoreGetHandler
 
 
 def process_http_request(environ, start_response):
@@ -22,11 +22,13 @@ def process_http_request(environ, start_response):
 
     elif environ["PATH_INFO"] == "/new-match" and environ["REQUEST_METHOD"] == "POST":
         handler = NewMatchPostHandler()
+
         content_length = int(environ.get('CONTENT_LENGTH', 0))
         post_data = environ['wsgi.input'].read(content_length).decode('utf-8')
         parsed_data = parse_qs(post_data)
         form_data = {key: value[0] for key, value in parsed_data.items()}
         player_1_name, player_2_name = handler.get_players_name_form_data(form_data)
+
         if not handler.is_correct_player_name(player_1_name) or not handler.is_correct_player_name(player_2_name) or player_1_name == player_2_name:
             HTML = handler(player_1_name=player_1_name, player_2_name=player_2_name)
         else:
@@ -38,10 +40,14 @@ def process_http_request(environ, start_response):
             response.location = match_url
             return response(environ, start_response)
 
+    elif environ["PATH_INFO"] == "/match-score" and environ["REQUEST_METHOD"] == "GET":
+        handler = MatchScoreGetHandler()
+        HTML = handler()
 
-    elif environ["PATH_INFO"] == "/match-score":
-        with open("view/pages/match-score.html", "r", encoding="UTF-8") as file:
-            HTML = file.read()
+    # elif environ["PATH_INFO"] == "/match-score" and environ["REQUEST_METHOD"] == "POST":
+    #     handler = MatchScorePostHandler()
+    #     HTML = handler()
+
     else:
         status = "400"
         with open("view/pages/not_found.html", "r", encoding="UTF-8") as file:
