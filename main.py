@@ -30,9 +30,12 @@ def process_http_request(environ, start_response):
         if not handler.is_correct_player_name(player_1_name) or not handler.is_correct_player_name(player_2_name) or player_1_name == player_2_name:
             HTML = handler(player_1_name=player_1_name, player_2_name=player_2_name)
         else:
-            response = Response(status=303)
+            tennis_match = handler(player_1_name=player_1_name, player_2_name=player_2_name)
+            uuid = tennis_match.match_uuid
+            match_url = "/match-score?uuid=" + uuid
 
-            response.location = '/new_page'
+            response = Response(status=303)
+            response.location = match_url
             return response(environ, start_response)
 
 

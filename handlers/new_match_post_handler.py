@@ -19,14 +19,13 @@ class NewMatchPostHandler:
     Ключом коллекции является UUID, значением - экземпляр класса Match.
     3. Редирект на страницу /match-score?uuid=$match_id
     """
-    CURRENT_MATCHES = {} # Коллекция текущих матчей. Сюда будем складывать объекты класса TennisMatch
 
     def __call__(self, player_1_name, player_2_name):
         """
         Метод для вызова объекта класса NewMatchPostHandler
         :param player_1_name: имя игрока 1
         :param player_2_name: имя игрока 2
-        :return: возвращаем HTML страницу если хоть одно имя игрока не корректно или адрес для редиректа если оба имени корректны
+        :return: возвращаем HTML страницу если хоть одно имя игрока не корректно или объект класса TennisMatch если оба имени корректны
         """
         if not self.is_correct_player_name(player_1_name) or not self.is_correct_player_name(player_2_name) or player_1_name == player_2_name:
             if not self.is_correct_player_name(player_1_name) and not self.is_correct_player_name(player_2_name):
@@ -54,11 +53,7 @@ class NewMatchPostHandler:
                                        player_2_ID=player_2_ID,
                                        player_2_name=player_2_name
                                        )
-
-            uuid = tennis_match.match_uuid
-            self.CURRENT_MATCHES[uuid] = tennis_match
-            match_url = "/match-score?uuid=" + uuid
-            return match_url
+            return tennis_match
 
     def is_correct_player_name(self, player_name: str) -> bool:
         """

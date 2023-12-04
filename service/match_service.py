@@ -1,25 +1,41 @@
 from dao.dao_match_repository import DaoMatchRepository
-from service.tennis_match import TennisMatch
 
 
 class MatchService:
     """
     Класс для проведения матча
-    Объект класса MatchService создает объект класса TennisMatch и проводит этот матч
-    По завершении матча записывает его в БД в таблицу matches
+    Объект класса MatchService принимает объект класса TennisMatch, складывает его в коллекцию CURRENT_MATCHES и проводит этот матч
+    По завершении матча записывает его в БД в таблицу matches и удаляет из коллекции CURRENT_MATCHES
 
     Для проведения матча необходимо создать объект класса MatchService
     И вызвать метод perform_match, в который будут передавать результаты POST запросов
     """
 
-    def __init__(self, player_1, player_2):
+    CURRENT_MATCHES = {} # Коллекция текущих матчей. Сюда будем складывать объекты класса TennisMatch
+
+    def __init__(self, tennis_match):
         """
         Инициализатор класса MatchService
-        :param player_1: объект класса PlayerOrm для игрока 1
-        :param player_2: объект класса PlayerOrm для игрока 2
+        :param tennis_match: объект класса TennisMatch
         """
-        self.player_1 = player_1
-        self.player_2 = player_2
+        self.tennis_match = tennis_match
+        self.add_match()
+
+    def add_match(self):
+        """
+        Метод добавляет новый матч в коллекцию CURRENT_MATCHES
+        :return: None
+        """
+        uuid = self.tennis_match.match_uuid
+        self.CURRENT_MATCHES[uuid] = self.tennis_match
+
+    def remove_match(self):
+        """
+        Метод удаляет матч из коллекции CURRENT_MATCHES
+        :return: None
+        """
+        uuid = self.tennis_match.match_uuid
+        del self.CURRENT_MATCHES[uuid]
 
     def perform_match(self):
         """
@@ -27,20 +43,12 @@ class MatchService:
         По завершении матча возвращает записанную строку прошедшего матча
         :return: объект класса MatchOrm
         """
-        player_1_ID, player_1_name = self.player_1.ID, self.player_1.name
-        player_2_ID, player_2_name = self.player_2.ID, self.player_2.name
 
-        tennis_match = TennisMatch(player_1_ID=player_1_ID,
-                                   player_1_name=player_1_name,
-                                   player_2_ID=player_2_ID,
-                                   player_2_name=player_2_name
-                                   )
+        while not self.tennis_match.check_end_match():
+            self.tennis_match.show_match_score()
 
-        while not tennis_match.check_end_match():
-            tennis_match.show_match_score()
-
-            for tennis_set in tennis_match.set_dict.values():
-                if tennis_match.check_end_match():
+            for tennis_set in self.tennis_match.set_dict.values():
+                if self.tennis_match.check_end_match():
                     break
                 while not tennis_set.check_end_set():
                     tennis_set.show_set_score()
@@ -60,18 +68,18 @@ class MatchService:
                         tennis_set.add_point(1) if tennis_game.player_1_win_game else tennis_set.add_point(2)
                         tennis_set.show_set_score()
 
-                tennis_match.add_point(1) if tennis_set.player_1_win_set else tennis_match.add_point(2)
-                tennis_match.show_match_score()
+                self.tennis_match.add_point(1) if tennis_set.player_1_win_set else self.tennis_match.add_point(2)
+                self.tennis_match.show_match_score()
+
+        winner = self.tennis_match.player_1_ID if self.tennis_match.player_1_win_match else self.tennis_match.player_2_ID
+        self.remove_match()
 
         dao_obj = DaoMatchRepository()
-
-        winner = player_1_ID if tennis_match.player_1_win_match else player_2_ID
-
-        new_match = dao_obj.save_to_database(UUID=tennis_match.match_uuid,
-                                             player1=player_1_ID,
-                                             player2=player_2_ID,
+        new_match = dao_obj.save_to_database(UUID=self.tennis_match.match_uuid,
+                                             player1=self.tennis_match.player_1_ID,
+                                             player2=self.tennis_match.player_2_ID,
                                              winner=winner,
-                                             score=str(tennis_match.result_match_score)
+                                             score=str(self.tennis_match.result_match_score)
                                              )
 
         return new_match
