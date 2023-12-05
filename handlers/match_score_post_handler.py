@@ -52,17 +52,22 @@ class MatchScorePostHandler:
                     return HTML
 
                 else: # если матч не завершен
+                    self.tennis_match.add_point(player_win_game)
+                    self.tennis_match.update_result_match_score()
+
                     for i in range(1, 4):
                         tennis_set = self.tennis_match.set_dict[i]
                         if not tennis_set.check_end_set(): # находим незавершенный сет и ссылаемся current_tennis_set на него
                             self.tennis_match.current_tennis_set = tennis_set
                             self.tennis_match.current_tennis_game = self.tennis_match.current_tennis_set.game_dict[1]
+                            break
 
             else: # если текущий сет НЕ завершен
                 for i in range(1, 14):
                     tennis_game = self.tennis_match.current_tennis_set.game_dict[i]
                     if not tennis_game.check_end_game(): # находим незавершенный гейм и ссылаемся current_tennis_game на него
                         self.tennis_match.current_tennis_game = tennis_game
+                        break
 
         handler = MatchScoreGetHandler(self.tennis_match)
         HTML = handler()

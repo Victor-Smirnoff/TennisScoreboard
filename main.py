@@ -11,12 +11,13 @@ from handlers.match_score_get_handler import MatchScoreGetHandler
 from handlers.match_score_post_handler import MatchScorePostHandler
 
 
+CURRENT_MATCHES = {}  # Коллекция текущих матчей. Сюда будем складывать объекты класса TennisMatch
+
+
 class MainApp:
     """
     Главный класс веб-сервер
     """
-
-    CURRENT_MATCHES = {}  # Коллекция текущих матчей. Сюда будем складывать объекты класса TennisMatch
 
     def process_http_request(self, environ, start_response):
         status = "200 OK"
@@ -44,7 +45,7 @@ class MainApp:
                 tennis_match = handler(player_1_name=player_1_name, player_2_name=player_2_name)
                 uuid = tennis_match.match_uuid
                 match_url = "/match-score?uuid=" + uuid
-                self.CURRENT_MATCHES[uuid] = tennis_match
+                CURRENT_MATCHES[uuid] = tennis_match
 
                 response = Response(status=303)
                 response.location = match_url
@@ -55,7 +56,7 @@ class MainApp:
             REQUEST_URI = environ["REQUEST_URI"]
             uuid_from_REQUEST_URI = findall(regex, REQUEST_URI)[0]
 
-            tennis_match = self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
+            tennis_match = CURRENT_MATCHES[uuid_from_REQUEST_URI]
             handler = MatchScoreGetHandler(tennis_match)
             HTML = handler()
 
@@ -63,7 +64,7 @@ class MainApp:
             regex = r"(?<=/match-score\?uuid=).+"
             REQUEST_URI = environ["REQUEST_URI"]
             uuid_from_REQUEST_URI = findall(regex, REQUEST_URI)[0]
-            tennis_match = self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
+            tennis_match = CURRENT_MATCHES[uuid_from_REQUEST_URI]
 
             handler = MatchScorePostHandler(tennis_match)
 
@@ -76,7 +77,7 @@ class MainApp:
             HTML = handler(player_win_game)
 
             if tennis_match.check_end_match():
-                del self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
+                del CURRENT_MATCHES[uuid_from_REQUEST_URI]
 
         else:
             status = "400"
