@@ -67,34 +67,6 @@
                 <div class="cell"><h4>{{ player_2_set_3_score }}</h4></div>
               </div>
 
-              <div class="row">
-                <div class="cell"><h4>{{ player_1_game_score }}</h4></div>
-                <div class="cell"><h4>гейм</h4></div>
-                <div class="cell"><h4>{{ player_2_game_score }}</h4></div>
-              </div>
-
-              <div class="row">
-                <div class="cell"><h4>{{ player_1_game_score_points }}</h4></div>
-                <div class="cell"><h4>очки гейма</h4></div>
-                <div class="cell"><h4>{{ player_2_game_score_points }}</h4></div>
-              </div>
-
-              <div class="row">
-                <div class="cell">
-                    <form action="{{ REQUEST_URI }}" method="post" enctype="application/x-www-form-urlencoded">
-                        <input type="hidden" name="player_win_game" value="1">
-                        <button class="custom-button" type="submit" title="Нажмите если игрок 1 выиграл текущее очко">игрок 1 выиграл текущее очко</button>
-                    </form>
-                </div>
-                <div class="cell"></div>
-                <div class="cell">
-                    <form action="{{ REQUEST_URI }}" method="post" enctype="application/x-www-form-urlencoded">
-                        <input type="hidden" name="player_win_game" value="2">
-                        <button class="custom-button" type="submit" title="Нажмите если игрок 2 выиграл текущее очко">игрок 2 выиграл текущее очко</button>
-                    </form>
-                </div>
-              </div>
-
             </div>
 
         </div>

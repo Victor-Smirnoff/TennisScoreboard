@@ -55,25 +55,28 @@ class MainApp:
             REQUEST_URI = environ["REQUEST_URI"]
             uuid_from_REQUEST_URI = findall(regex, REQUEST_URI)[0]
 
-            print(uuid_from_REQUEST_URI)
-
             tennis_match = self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
             handler = MatchScoreGetHandler(tennis_match)
             HTML = handler()
 
         elif environ["PATH_INFO"] == "/match-score" and environ["REQUEST_METHOD"] == "POST":
+            regex = r"(?<=/match-score\?uuid=).+"
             REQUEST_URI = environ["REQUEST_URI"]
+            uuid_from_REQUEST_URI = findall(regex, REQUEST_URI)[0]
+            tennis_match = self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
 
-            print(REQUEST_URI)
-
-            handler = MatchScorePostHandler(REQUEST_URI)
+            handler = MatchScorePostHandler(tennis_match)
 
             content_length = int(environ.get('CONTENT_LENGTH', 0))
             post_data = environ['wsgi.input'].read(content_length).decode('utf-8')
             parsed_data = parse_qs(post_data)
             form_data = {key: value[0] for key, value in parsed_data.items()}
             player_win_game = int(form_data["player_win_game"])
+
             HTML = handler(player_win_game)
+
+            if tennis_match.check_end_match():
+                del self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
 
         else:
             status = "400"
