@@ -3,7 +3,6 @@ from jinja2 import Template
 
 from service.tennis_match import TennisMatch
 from service.player_service import PlayerService
-from service.match_service import MatchService
 
 
 class NewMatchPostHandler:

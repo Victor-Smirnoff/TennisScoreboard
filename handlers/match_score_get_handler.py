@@ -1,8 +1,5 @@
 from jinja2 import Template
-
 from service.tennis_match import TennisMatch
-from service.tennis_set import TennisSet
-
 
 
 class MatchScoreGetHandler:
@@ -37,6 +34,10 @@ class MatchScoreGetHandler:
             player_2_set_2_score = self.tennis_match.set_dict[2].result_set_score["player_2"]
             player_1_set_3_score = self.tennis_match.set_dict[3].result_set_score["player_1"]
             player_2_set_3_score = self.tennis_match.set_dict[3].result_set_score["player_2"]
+            player_1_game_score = self.tennis_match.current_tennis_game.player_1_score
+            player_2_game_score = self.tennis_match.current_tennis_game.player_2_score
+            player_1_game_score_points = self.tennis_match.current_tennis_game.result_game_score["player_1"]
+            player_2_game_score_points = self.tennis_match.current_tennis_game.result_game_score["player_2"]
 
             template = Template(HTML)
             HTML = template.render(REQUEST_URI=REQUEST_URI,
@@ -50,8 +51,10 @@ class MatchScoreGetHandler:
                                    player_2_set_2_score=player_2_set_2_score,
                                    player_1_set_3_score=player_1_set_3_score,
                                    player_2_set_3_score=player_2_set_3_score,
-
-
+                                   player_1_game_score=player_1_game_score,
+                                   player_2_game_score=player_2_game_score,
+                                   player_1_game_score_points=player_1_game_score_points,
+                                   player_2_game_score_points=player_2_game_score_points
                                    )
 
             return HTML
