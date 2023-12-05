@@ -52,13 +52,15 @@ class MatchScorePostHandler:
                     return HTML
 
                 else: # если матч не завершен
-                    for tennis_set in self.tennis_match.set_dict.values():
+                    for i in range(1, 4):
+                        tennis_set = self.tennis_match.set_dict[i]
                         if not tennis_set.check_end_set(): # находим незавершенный сет и ссылаемся current_tennis_set на него
                             self.tennis_match.current_tennis_set = tennis_set
                             self.tennis_match.current_tennis_game = self.tennis_match.current_tennis_set.game_dict[1]
 
             else: # если текущий сет НЕ завершен
-                for tennis_game in self.tennis_match.current_tennis_set.game_dict.values():
+                for i in range(1, 14):
+                    tennis_game = self.tennis_match.current_tennis_set.game_dict[i]
                     if not tennis_game.check_end_game(): # находим незавершенный гейм и ссылаемся current_tennis_game на него
                         self.tennis_match.current_tennis_game = tennis_game
 
