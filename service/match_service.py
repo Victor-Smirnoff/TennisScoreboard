@@ -1,3 +1,8 @@
+"""
+Этот класс нигде в программе не используется!!!
+Его можно целиком удалить!!! Весь файл удалить!!!
+"""
+
 from dao.dao_match_repository import DaoMatchRepository
 
 
