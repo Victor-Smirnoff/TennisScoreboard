@@ -139,3 +139,14 @@ h4 {
   color: #a8ac89;
   font-size: 18px;
 }
+
+.cell_10 {
+  flex: 0 0 10%;
+  min-height: 50px;
+  width: 10%;
+  border: 1px solid #b9b9b9; /* Добавлено для наглядности */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

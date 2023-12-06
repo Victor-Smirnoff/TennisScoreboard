@@ -5,6 +5,7 @@ from webob import Response
 from re import findall
 
 from handlers.index_handler import IndexHandler
+from handlers.matches_handler import MatchesHandler
 from handlers.new_match_get_handler import NewMatchGetHandler
 from handlers.new_match_post_handler import NewMatchPostHandler
 from handlers.match_score_get_handler import MatchScoreGetHandler
@@ -79,6 +80,10 @@ class MainApp:
             if tennis_match.check_end_match():
                 if uuid_from_REQUEST_URI in self.CURRENT_MATCHES:
                     del self.CURRENT_MATCHES[uuid_from_REQUEST_URI]
+
+        elif environ["PATH_INFO"] == "/matches" and environ["REQUEST_METHOD"] == "GET":
+            handler = MatchesHandler()
+            HTML = handler()
 
         else:
             status = "400"
