@@ -18,7 +18,7 @@ class TennisMatch:
         self.player_2_score = 0
         self.result_match_score = {"player_1": 0, "player_2": 0}
         self.match_uuid = str(uuid.uuid4())
-        self.current_tennis_set = self.set_dict[1] # сомнительная переменная, возможно, удалить её
+        self.current_tennis_set = self.set_dict[1]
         self.current_tennis_game = self.current_tennis_set.game_dict[1]
 
     def add_point(self, player: int):

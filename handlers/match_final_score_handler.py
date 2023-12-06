@@ -34,6 +34,7 @@ class MatchFinalScoreHandler:
             player_2_set_2_score = self.tennis_match.set_dict[2].result_set_score["player_2"]
             player_1_set_3_score = self.tennis_match.set_dict[3].result_set_score["player_1"]
             player_2_set_3_score = self.tennis_match.set_dict[3].result_set_score["player_2"]
+            winner_message = f"Матч завершен. Победил игрок <{self.tennis_match.player_1_name if self.tennis_match.player_1_win_match else self.tennis_match.player_2_name}>!"
 
             template = Template(HTML)
             HTML = template.render(REQUEST_URI=REQUEST_URI,
@@ -47,6 +48,7 @@ class MatchFinalScoreHandler:
                                    player_2_set_2_score=player_2_set_2_score,
                                    player_1_set_3_score=player_1_set_3_score,
                                    player_2_set_3_score=player_2_set_3_score,
+                                   winner_message=winner_message
                                    )
 
             return HTML

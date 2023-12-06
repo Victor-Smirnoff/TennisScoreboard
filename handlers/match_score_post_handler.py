@@ -35,7 +35,8 @@ class MatchScorePostHandler:
             self.tennis_match.current_tennis_set.add_point(player_win_game)
 
             if self.tennis_match.current_tennis_set.check_end_set(): # если текущий сет завершен
-                self.tennis_match.current_tennis_set.add_point(player_win_game)
+                self.tennis_match.add_point(player_win_game)
+                self.tennis_match.update_result_match_score()
 
                 if self.tennis_match.check_end_match(): # если весь матч завершен
                     winner = self.tennis_match.player_1_ID if self.tennis_match.player_1_win_match else self.tennis_match.player_2_ID
@@ -52,8 +53,6 @@ class MatchScorePostHandler:
                     return HTML
 
                 else: # если матч не завершен
-                    self.tennis_match.add_point(player_win_game)
-                    self.tennis_match.update_result_match_score()
 
                     for i in range(1, 4):
                         tennis_set = self.tennis_match.set_dict[i]
