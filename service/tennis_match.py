@@ -30,9 +30,11 @@ class TennisMatch:
         if int(player) == 1:
             self.player_1_score += 1
             self.update_result_match_score()
+            self.check_end_match()
         elif int(player) == 2:
             self.player_2_score += 1
             self.update_result_match_score()
+            self.check_end_match()
 
     def update_result_match_score(self):
         """

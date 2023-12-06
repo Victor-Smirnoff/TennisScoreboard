@@ -23,9 +23,11 @@ class TennisSet:
         if int(player) == 1:
             self.player_1_score += 1
             self.update_result_set_score()
+            self.check_end_set()
         elif int(player) == 2:
             self.player_2_score += 1
             self.update_result_set_score()
+            self.check_end_set()
 
     def update_result_set_score(self):
         """

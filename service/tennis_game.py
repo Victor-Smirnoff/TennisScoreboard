@@ -17,8 +17,10 @@ class TennisGame:
         """
         if int(player) == 1:
             self.player_1_score += 1
+            self.check_end_game()
         elif int(player) == 2:
             self.player_2_score += 1
+            self.check_end_game()
 
     def check_end_game(self):
         """
