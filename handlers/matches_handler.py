@@ -1,5 +1,6 @@
 from jinja2 import Template
 from re import fullmatch
+from urllib.parse import parse_qs, urlparse
 
 from dao.dao_match_repository import DaoMatchRepository
 from dao.dao_player_repository import DaoPlayerRepository
@@ -11,7 +12,7 @@ class MatchesHandler:
     Класс обрабатывает GET запросы на странице '/matches'
     """
 
-    def __call__(self, page=1, filter_by_player_name="all"):
+    def __call__(self, page=1, filter_by_player_name="all", REQUEST_URI="/matches"):
         """
         Метод для вызова объекта класса MatchesHandler
         :param page: номер страницы
@@ -45,17 +46,31 @@ class MatchesHandler:
                     HTML = self.get_error_html_page(error_message)
                     return HTML
 
-        
+        maximum_matches_on_page = 5
+        quantity_pages = ((len(lst_matches) // maximum_matches_on_page) + 1) if len(lst_matches) % maximum_matches_on_page != 0 else (len(lst_matches) // maximum_matches_on_page)
+
+        pagination_sample = self.get_pagination_sample(quantity_pages=quantity_pages, REQUEST_URI=REQUEST_URI)
 
         html_matches_sample = ""
-        for match in lst_matches:
-            html_row_sample = self.get_html_sample(match)
-            html_matches_sample += html_row_sample
+
+        if page == 1 and len(lst_matches) >= 5:
+            for match in lst_matches[0:maximum_matches_on_page]:
+                html_row_sample = self.get_html_sample(match)
+                html_matches_sample += html_row_sample
+        elif page == quantity_pages:
+            for match in lst_matches[maximum_matches_on_page * (page - 1):]:
+                html_row_sample = self.get_html_sample(match)
+                html_matches_sample += html_row_sample
+        else:
+            for match in lst_matches[maximum_matches_on_page * (page - 1):maximum_matches_on_page * page]:
+                html_row_sample = self.get_html_sample(match)
+                html_matches_sample += html_row_sample
 
         with open("view/pages/matches.html", "r", encoding="UTF-8") as file:
             HTML = file.read()
         tm = Template(HTML)
-        HTML = tm.render(html_matches_sample=html_matches_sample)
+        HTML = tm.render(html_matches_sample=html_matches_sample,
+                         pagination_sample=pagination_sample)
         return HTML
 
     def get_html_sample(self, match):
@@ -104,3 +119,74 @@ class MatchesHandler:
         :return: bool True - если имя корректное, False - имя не корректное
         """
         return True if fullmatch(r"^[a-zA-Zа-яА-ЯёЁ ]+$", player_name) else False
+
+    def get_pagination_sample(self, quantity_pages, REQUEST_URI):
+        """
+        Метод возвращает строки html кода с готовой пагинацией
+        :param quantity_pages: количество страниц для изготовления пагинации
+        :return: строка с кодом html
+        """
+        current_page_number = self.get_page_number(REQUEST_URI)
+
+        html_pagination_sample_start = """
+                            <br>
+                  <div class="pagination" style="text-align: center; font-size: 24px;">
+                      <a href="#">&NestedLessLess;</a>
+                    """
+
+        html_pagination_sample = ""
+
+        html_pagination_sample += html_pagination_sample_start
+
+        for i in range(1, quantity_pages + 1):
+            if i == current_page_number:
+                current_string = f'<a href="{REQUEST_URI}" class="active">{i}</a>'
+            else:
+                query_params = self.parse_request_uri(REQUEST_URI)
+
+                if "page" in query_params and "filter_by_player_name" in query_params:
+                    current_request_uri = f"matches?page={i}&filter_by_player_name={query_params["filter_by_player_name"]}"
+                elif "page" in query_params and "filter_by_player_name" not in query_params:
+                    current_request_uri = f"matches?page={i}"
+                elif "page" not in query_params and "filter_by_player_name" in query_params:
+                    current_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
+                elif "page" not in query_params and "filter_by_player_name" not in query_params:
+                    current_request_uri = f"matches?page={i}"
+
+                current_string = f'<a href="{current_request_uri}">{i}</a>'
+
+            html_pagination_sample += current_string
+
+        html_pagination_sample_end = """<a href="#">&NestedGreaterGreater;</a>
+          </div>
+            <br>
+            """
+
+        html_pagination_sample += html_pagination_sample_end
+
+        return html_pagination_sample
+
+    def get_page_number(self, request_uri):
+        """
+        Метод для возвращения словаря с параметрами из url
+        :param request_uri: url адрес
+        :return: значение page из get запроса, если в словаре такого ключа нет, то возвращается число 1
+        """
+        parsed_url = urlparse(request_uri)
+        query_params = parse_qs(parsed_url.query)
+        query_params = {key: value[0] for key, value in query_params.items()}
+        if "page" in query_params:
+            return int(query_params["page"])
+        else:
+            return 1
+
+    def parse_request_uri(self, request_uri):
+        """
+        Метод для возвращения словаря с параметрами из url
+        :param request_uri: url адрес
+        :return: словарь с параметрами get-запроса
+        """
+        parsed_url = urlparse(request_uri)
+        query_params = parse_qs(parsed_url.query)
+        query_params = {key: value[0] for key, value in query_params.items()}
+        return query_params

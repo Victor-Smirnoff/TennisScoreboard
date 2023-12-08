@@ -77,22 +77,26 @@ class MainApp:
 
         elif environ["PATH_INFO"] == "/matches" and environ["REQUEST_METHOD"] == "GET":
             handler = MatchesHandler()
-            form_data = self.parse_request_uri(environ["REQUEST_URI"])
+            REQUEST_URI = environ["REQUEST_URI"]
+            form_data = self.parse_request_uri(REQUEST_URI)
 
             if len(form_data) == 0:
                 HTML = handler()
             else:
                 if "page" in form_data and "filter_by_player_name" in form_data:
-                    HTML = handler(page=form_data["page"],
-                                   filter_by_player_name=form_data["filter_by_player_name"]
+                    HTML = handler(page=int(form_data["page"]),
+                                   filter_by_player_name=form_data["filter_by_player_name"],
+                                   REQUEST_URI=REQUEST_URI
                                    )
                 elif "page" not in form_data and "filter_by_player_name" in form_data:
                     HTML = handler(page=1,
-                                   filter_by_player_name=form_data["filter_by_player_name"]
+                                   filter_by_player_name=form_data["filter_by_player_name"],
+                                   REQUEST_URI=REQUEST_URI
                                    )
                 elif "page" in form_data and "filter_by_player_name" not in form_data:
-                    HTML = handler(page=form_data["page"],
-                                   filter_by_player_name=""
+                    HTML = handler(page=int(form_data["page"]),
+                                   filter_by_player_name="",
+                                   REQUEST_URI=REQUEST_URI
                                    )
 
         else:
@@ -119,6 +123,11 @@ class MainApp:
         return form_data
 
     def parse_request_uri(self, request_uri):
+        """
+        Метод для возвращения словаря с параметрами из url
+        :param request_uri: url адрес
+        :return: словарь с параметрами get-запроса
+        """
         parsed_url = urlparse(request_uri)
         query_params = parse_qs(parsed_url.query)
         query_params = {key: value[0] for key, value in query_params.items()}

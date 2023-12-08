@@ -157,6 +157,7 @@ h4 {
     padding: 8px 8px;
     transition: 0.3s;
     text-align: center;
+    font-size: 24px;
 }
 
 .pagination a.active {
