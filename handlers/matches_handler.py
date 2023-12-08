@@ -45,6 +45,8 @@ class MatchesHandler:
                     HTML = self.get_error_html_page(error_message)
                     return HTML
 
+        
+
         html_matches_sample = ""
         for match in lst_matches:
             html_row_sample = self.get_html_sample(match)

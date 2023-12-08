@@ -150,3 +150,19 @@ h4 {
   align-items: center;
   text-align: center;
 }
+
+.pagination a {
+    text-decoration: none;
+    color: #a8ac89;
+    padding: 8px 8px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.pagination a.active {
+    background: #c75450;
+}
+
+.pagination a:hover:not(.active) {
+    background: #ccc;
+}
