@@ -77,8 +77,8 @@ p {
     font-family: Lucida Sans Unicode;
     color: #a8ac89; /* Цвет текста на кнопке */
     font-size: 18px; /* Размер текста на кнопке */
-    margin-right: 80px;
-    margin-left: 80px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .container {
@@ -89,7 +89,7 @@ p {
 .item {
     padding: 0;
     font-size: 40px;
-    border: 0;
+    border: 3px solid red;
     min-height: 150px;
 
 

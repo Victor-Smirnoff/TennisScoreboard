@@ -6,7 +6,7 @@ from model.config import settings
 
 # создаем движок sqlalchemy для работы с БД
 # если базы tennis в базе данных нет, то она будет создана, если она есть, то будет создано подключение к ней
-engine = create_engine(url=settings.DATA_BASE_URL, echo=True)
+engine = create_engine(url=settings.DATA_BASE_URL, echo=False)
 
 session_factory = sessionmaker(bind=engine) # создаем переменную session_factory для создания сессий
 

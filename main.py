@@ -1,6 +1,6 @@
 from waitress import serve
 from whitenoise import WhiteNoise
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlparse
 from webob import Response
 from re import findall
 
@@ -34,10 +34,7 @@ class MainApp:
         elif environ["PATH_INFO"] == "/new-match" and environ["REQUEST_METHOD"] == "POST":
             handler = NewMatchPostHandler()
 
-            content_length = int(environ.get('CONTENT_LENGTH', 0))
-            post_data = environ['wsgi.input'].read(content_length).decode('utf-8')
-            parsed_data = parse_qs(post_data)
-            form_data = {key: value[0] for key, value in parsed_data.items()}
+            form_data = self.get_form_data(environ)
             player_1_name, player_2_name = handler.get_players_name_form_data(form_data)
 
             if not handler.is_correct_player_name(player_1_name) or not handler.is_correct_player_name(player_2_name) or player_1_name == player_2_name:
@@ -69,10 +66,7 @@ class MainApp:
 
             handler = MatchScorePostHandler(tennis_match)
 
-            content_length = int(environ.get('CONTENT_LENGTH', 0))
-            post_data = environ['wsgi.input'].read(content_length).decode('utf-8')
-            parsed_data = parse_qs(post_data)
-            form_data = {key: value[0] for key, value in parsed_data.items()}
+            form_data = self.get_form_data(environ)
             player_win_game = int(form_data["player_win_game"])
 
             HTML = handler(player_win_game)
@@ -83,7 +77,25 @@ class MainApp:
 
         elif environ["PATH_INFO"] == "/matches" and environ["REQUEST_METHOD"] == "GET":
             handler = MatchesHandler()
-            HTML = handler()
+            # form_data = self.get_form_data(environ)
+            form_data = self.parse_request_uri(environ["REQUEST_URI"])
+            print(form_data)
+
+            if len(form_data) == 0:
+                HTML = handler()
+            else:
+                if "page" in form_data and "filter_by_player_name" in form_data:
+                    HTML = handler(page=form_data["page"],
+                                   filter_by_player_name=form_data["filter_by_player_name"]
+                                   )
+                elif "page" not in form_data and "filter_by_player_name" in form_data:
+                    HTML = handler(page=1,
+                                   filter_by_player_name=form_data["filter_by_player_name"]
+                                   )
+                elif "page" in form_data and "filter_by_player_name" not in form_data:
+                    HTML = handler(page=form_data["page"],
+                                   filter_by_player_name=""
+                                   )
 
         else:
             status = "400"
@@ -98,6 +110,24 @@ class MainApp:
 
         html_as_bytes = HTML.encode("utf-8")
         return [html_as_bytes]
+
+    def get_form_data(self, environ):
+        """
+        Метод для получения данных форм
+        :param environ: окружение
+        :return: словарь с данными форм
+        """
+        content_length = int(environ.get('CONTENT_LENGTH', 0))
+        post_data = environ['wsgi.input'].read(content_length).decode('utf-8')
+        parsed_data = parse_qs(post_data)
+        form_data = {key: value[0] for key, value in parsed_data.items()}
+        return form_data
+
+    def parse_request_uri(self, request_uri):
+        parsed_url = urlparse(request_uri)
+        query_params = parse_qs(parsed_url.query)
+        query_params = {key: value[0] for key, value in query_params.items()}
+        return query_params
 
 
 
