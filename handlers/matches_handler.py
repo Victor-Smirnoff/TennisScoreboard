@@ -36,12 +36,12 @@ class MatchesHandler:
             if not lst_matches:
                 dao_player_obj = DaoPlayerRepository()
                 player = dao_player_obj.find_by_name(filter_by_player_name)
-                if type(player) is None:
+                if player is None:
                     error_message = f"Ошибка: имя игрока “{filter_by_player_name}“ введено некорректно - такого игрока не существует, попробуйте ещё раз"
                     HTML = self.get_error_html_page(error_message)
                     return HTML
                 else:
-                    error_message = f"Ошибка: у игрока по имени “{filter_by_player_name}“ нет завершенных матчей, попробуйте ещё раз"
+                    error_message = f"Ошибка: у игрока по имени “{filter_by_player_name}“ нет завершенных матчей, попробуйте ввести другое имя"
                     HTML = self.get_error_html_page(error_message)
                     return HTML
 

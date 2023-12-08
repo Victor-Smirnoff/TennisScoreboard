@@ -77,9 +77,7 @@ class MainApp:
 
         elif environ["PATH_INFO"] == "/matches" and environ["REQUEST_METHOD"] == "GET":
             handler = MatchesHandler()
-            # form_data = self.get_form_data(environ)
             form_data = self.parse_request_uri(environ["REQUEST_URI"])
-            print(form_data)
 
             if len(form_data) == 0:
                 HTML = handler()
@@ -104,9 +102,6 @@ class MainApp:
 
         response_headers = [("Content-type", "text/html; charset=utf-8"), ]
         start_response(status, response_headers)
-
-        print(environ)
-        print(environ["PATH_INFO"])
 
         html_as_bytes = HTML.encode("utf-8")
         return [html_as_bytes]
