@@ -1,5 +1,6 @@
 from jinja2 import Template
 from dao.dao_match_repository import DaoMatchRepository
+from dao.dao_player_repository import DaoPlayerRepository
 
 
 
@@ -15,39 +16,49 @@ class MatchesHandler:
         :param filter_by_player_name: имя игрока
         :return: возвращаем HTML страницу
         """
-        dao_obj = DaoMatchRepository()
+        dao_match_obj = DaoMatchRepository()
 
         if filter_by_player_name == "":
-            lst_matches = dao_obj.find_all()
+            lst_matches = dao_match_obj.find_all()
         else:
-            lst_matches = dao_obj.find_by_name(filter_by_player_name)
-
-        html_row_sample = """<div class="row">
-              <div class="cell_10"><h4>ID</h4></div>
-              <div class="cell"><h4>Игрок 1</h4></div>
-              <div class="cell"><h4>Игрок 2</h4></div>
-              <div class="cell"><h4>Победитель</h4></div>
-            </div>
-            """
+            lst_matches = dao_match_obj.find_by_name(filter_by_player_name)
 
         html_matches_sample = ""
 
         for match in lst_matches:
-            match_ID = match.ID
-            player_1_ID = match.player1
-            player_2_ID = match.player2
-            winner_ID = match.winner
-            player_1_name =
+            html_row_sample = self.get_html_sample(match)
 
+            html_matches_sample += html_row_sample
 
-        # with open("view/pages/matches.html", "r", encoding="UTF-8") as file:
-        #     HTML = file.read()
-        # tm = Template(HTML)
-        # HTML = tm.render(lst_matches=lst_matches)
-        # return HTML
-        return lst_matches
+        with open("view/pages/matches.html", "r", encoding="UTF-8") as file:
+            HTML = file.read()
+        tm = Template(HTML)
+        HTML = tm.render(html_matches_sample=html_matches_sample)
+        return HTML
 
+    def get_html_sample(self, match):
+        """
+        Метод возвращает строку html таблицы с данными по одному завершенному матчу
+        :param match: объект класса TennisMatch
+        :return: строка с тегами html с данными по одному завершенному матчу
+        """
+        dao_player_obj = DaoPlayerRepository()
 
-handler = MatchesHandler()
-res = handler(filter_by_player_name="васа")
-print(res)
+        match_ID = match.ID
+        player_1_ID = match.player1
+        player_2_ID = match.player2
+        winner_ID = match.winner
+        player_1_name = dao_player_obj.find_name_by_id(player_1_ID)
+        player_2_name = dao_player_obj.find_name_by_id(player_2_ID)
+        winner_name = dao_player_obj.find_name_by_id(winner_ID)
+
+        html_row_sample = f"""
+                        <div class="row">
+                          <div class="cell_10"><h4>{match_ID}</h4></div>
+                          <div class="cell"><h4>{player_1_name}</h4></div>
+                          <div class="cell"><h4>{player_2_name}</h4></div>
+                          <div class="cell"><h4>{winner_name}</h4></div>
+                        </div>
+
+                        """
+        return html_row_sample
