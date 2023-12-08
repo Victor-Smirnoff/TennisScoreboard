@@ -38,3 +38,17 @@ class DaoPlayerRepository(PlayerRepository):
             player = result.scalars().first()
 
         return player
+
+    def find_name_by_id(self, player_id):
+        """
+        Метод возвращает имя игрока по его айди
+        Заходит в БД и берет из таблицы Players имя игрока
+        :param player_id: айди игрока
+        :return: имя игрока
+        """
+        with session_factory() as session:
+            query = select(PlayerOrm).filter_by(ID=player_id)
+            result = session.execute(query)
+            player_name = result.scalars().first().name
+
+        return player_name
