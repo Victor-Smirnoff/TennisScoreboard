@@ -42,6 +42,9 @@ class MatchesHandler:
                     HTML = self.get_error_html_page(error_message)
                     return HTML
                 else:
+                    lst_players_ID = dao_match_obj.get_all_players_ID_with_matches()
+
+
                     error_message = f"Ошибка: у игрока по имени “{filter_by_player_name}“ нет завершенных матчей, попробуйте ввести другое имя"
                     HTML = self.get_error_html_page(error_message)
                     return HTML

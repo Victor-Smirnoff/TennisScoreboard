@@ -91,3 +91,20 @@ class DaoMatchRepository(MatchRepository):
             new_match = result.scalars().first()
 
         return new_match
+
+    def get_all_players_ID_with_matches(self):
+        """
+        Метод выполняет сбор всех игроков, у которых есть завершенные матчи
+        :return: список объектов класса MatchOrm, которые есть в таблице Matches
+        """
+        with session_factory() as session:
+            query_1 = select(MatchOrm.player1).group_by(MatchOrm.player1)
+            query_2 = select(MatchOrm.player2).group_by(MatchOrm.player2)
+            result_1 = session.execute(query_1)
+            result_2 = session.execute(query_2)
+            ID_lst_1 = result_1.scalars().all()
+            ID_lst_2 = result_2.scalars().all()
+            set_player_ID = set()
+            set_player_ID.update(ID_lst_1)
+            set_player_ID.update(ID_lst_2)
+            return list(set_player_ID)
