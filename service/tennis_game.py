@@ -111,31 +111,3 @@ class TennisGameTieBreak(TennisGame):
         :return: None
         """
         self.result_game_score = {"player_1": self.player_1_score, "player_2": self.player_2_score}
-
-
-# это строчки для запуска класса TennisGame и проведения одного гейма !!!
-
-# game = TennisGame()
-# while not game.check_end_game():
-#     game.show_game_score()
-#     player = input("введите номер игрока 1 или 2: ")
-#     game.add_point(player)
-#     game.set_game_score()
-#
-# game.show_game_score()
-# print(f"Победил игрок_1: {game.player_1_win_game}")
-# print(f"Победил игрок_2: {game.player_2_win_game}")
-
-
-# это строчки для запуска класса TennisGameTieBreak гейм тай-брейк и проведения одного гейма!!!
-
-# game = TennisGameTieBreak()
-# while not game.check_end_game():
-#     game.show_game_score()
-#     player = input("введите номер игрока 1 или 2: ")
-#     game.add_point(player)
-#     game.set_game_score()
-#
-# game.show_game_score()
-# print(f"Победил игрок_1: {game.player_1_win_game}")
-# print(f"Победил игрок_2: {game.player_2_win_game}")

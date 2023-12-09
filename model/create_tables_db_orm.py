@@ -41,7 +41,7 @@ class CreateTablesDataBase:
 
     def insert_data_matches(self):
         """
-        Метод добавляет сыгранные матчи из файла matches.csv - это рандомно написанные матчи, лишь бы было наполнение
+        Метод добавляет сыгранные матчи из файла generated_matches.csv - это рандомно написанные матчи, лишь бы было наполнение
         :return: None
         """
         with open("static_data/generated_matches.csv", "r", encoding="UTF-8") as file:

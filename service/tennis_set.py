@@ -63,16 +63,3 @@ class TennisSet:
         """
         print("Это вывод результата сета")
         print(self.result_set_score)
-
-
-# это строчки для запуска класса TennisSet и проведения одного сета!!!
-
-# tennis_set = TennisSet()
-# while not tennis_set.check_end_set():
-#     tennis_set.show_set_score()
-#     player = input("введите номер игрока 1 или 2: ")
-#     tennis_set.add_point(player)
-#
-# tennis_set.show_set_score()
-# print(f"Победил игрок_1: {tennis_set.player_1_win_set}")
-# print(f"Победил игрок_2: {tennis_set.player_2_win_set}")
