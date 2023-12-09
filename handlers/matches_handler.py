@@ -1,6 +1,7 @@
 from jinja2 import Template
 from re import fullmatch
 from urllib.parse import parse_qs, urlparse
+from random import shuffle
 
 from dao.dao_match_repository import DaoMatchRepository
 from dao.dao_player_repository import DaoPlayerRepository
@@ -42,10 +43,15 @@ class MatchesHandler:
                     HTML = self.get_error_html_page(error_message)
                     return HTML
                 else:
+                    error_message_1 = f"Ошибка: у игрока по имени “{filter_by_player_name}“ нет завершенных матчей, попробуйте ввести другое имя<br><br>"
                     lst_players_ID = dao_match_obj.get_all_players_ID_with_matches()
-
-
-                    error_message = f"Ошибка: у игрока по имени “{filter_by_player_name}“ нет завершенных матчей, попробуйте ввести другое имя"
+                    shuffle(lst_players_ID)
+                    five_player_ID = lst_players_ID[:5]
+                    dao_player_obj = DaoPlayerRepository()
+                    five_player_names = [dao_player_obj.find_name_by_id(player_ID) for player_ID in five_player_ID]
+                    n_1, n_2, n_3, n_4, n_5 = five_player_names[0], five_player_names[1], five_player_names[2], five_player_names[3], five_player_names[4]
+                    error_message_2 = f"Попробуйте искать следующие имена игроков: <br><br> “{n_1}“, “{n_2}“, “{n_3}“, “{n_4}“, “{n_5}“"
+                    error_message = error_message_1 + error_message_2
                     HTML = self.get_error_html_page(error_message)
                     return HTML
 
