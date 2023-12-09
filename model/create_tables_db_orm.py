@@ -15,6 +15,13 @@ class CreateTablesDataBase:
     Класс для создания таблиц players и matches в базе данных tennis
     """
 
+    def drop_tables(self):
+        """
+        Метод удаляет все записи из БД и удаляет таблицы из базы данных tennis
+        :return: None
+        """
+        Base.metadata.drop_all(engine)
+
     def create_tables(self):
         """
         Метод создает две таблицы в базе данных tennis:
@@ -110,7 +117,8 @@ class CreateTablesDataBase:
 
 
 data_base_obj = CreateTablesDataBase()
-data_base_obj.create_tables()
+
+# data_base_obj.create_tables() # создал таблицы с помощью alembic
 data_base_obj.insert_data_players()
 quantity_matches = 777
 data_base_obj.generate_matches(players_ID_lst=data_base_obj.get_players_ID_lst(), quantity_matches=quantity_matches)
