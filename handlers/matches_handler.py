@@ -127,7 +127,7 @@ class MatchesHandler:
         :param player_name: имя игрока
         :return: bool True - если имя корректное, False - имя не корректное
         """
-        return True if fullmatch(r"^[a-zA-Zа-яА-ЯёЁ ]+$", player_name) else False
+        return True if fullmatch(r"^[a-zA-Zа-яА-ЯёЁ -]+$", player_name) else False
 
     def get_pagination_sample(self, quantity_pages, REQUEST_URI):
         """
@@ -136,42 +136,61 @@ class MatchesHandler:
         :return: строка с кодом html
         """
         current_page_number = self.get_page_number(REQUEST_URI)
+        query_params = self.parse_request_uri(REQUEST_URI)
 
-        html_pagination_sample_start = """
-                            <br>
-                  <div class="pagination" style="text-align: center; font-size: 24px;">
-                      <a href="#">&NestedLessLess;</a>
-                    """
-
-        html_pagination_sample = ""
-
-        html_pagination_sample += html_pagination_sample_start
-
-        for i in range(1, quantity_pages + 1):
-            if i == current_page_number:
-                current_string = f'<a href="{REQUEST_URI}" class="active">{i}</a>'
+        if "page" in query_params and "filter_by_player_name" in query_params:
+            current_request_uri = f"matches?page={current_page_number}&filter_by_player_name={query_params["filter_by_player_name"]}"
+            if current_page_number - 1 >= 1:
+                prev_request_uri = f"matches?page={current_page_number - 1}&filter_by_player_name={query_params["filter_by_player_name"]}"
             else:
-                query_params = self.parse_request_uri(REQUEST_URI)
+                prev_request_uri = f"matches?page={current_page_number}&filter_by_player_name={query_params["filter_by_player_name"]}"
+            if current_page_number + 1 <= quantity_pages:
+                next_request_uri = f"matches?page={current_page_number + 1}&filter_by_player_name={query_params["filter_by_player_name"]}"
+            else:
+                next_request_uri = f"matches?page={current_page_number}&filter_by_player_name={query_params["filter_by_player_name"]}"
+            last_request_uri = f"matches?page={quantity_pages}&filter_by_player_name={query_params["filter_by_player_name"]}"
 
-                if "page" in query_params and "filter_by_player_name" in query_params:
-                    current_request_uri = f"matches?page={i}&filter_by_player_name={query_params["filter_by_player_name"]}"
-                elif "page" in query_params and "filter_by_player_name" not in query_params:
-                    current_request_uri = f"matches?page={i}"
-                elif "page" not in query_params and "filter_by_player_name" in query_params:
-                    current_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
-                elif "page" not in query_params and "filter_by_player_name" not in query_params:
-                    current_request_uri = f"matches?page={i}"
+        elif "page" in query_params and "filter_by_player_name" not in query_params:
+            current_request_uri = f"matches?page={current_page_number}"
+            if current_page_number - 1 >= 1:
+                prev_request_uri = f"matches?page={current_page_number - 1}"
+            else:
+                prev_request_uri = f"matches?page={current_page_number}"
+            if current_page_number + 1 <= quantity_pages:
+                next_request_uri = f"matches?page={current_page_number + 1}"
+            else:
+                next_request_uri = f"matches?page={current_page_number}"
+            last_request_uri = f"matches?page={quantity_pages}"
 
-                current_string = f'<a href="{current_request_uri}">{i}</a>'
+        elif "page" not in query_params and "filter_by_player_name" in query_params:
+            current_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
+            prev_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
+            if current_page_number + 1 <= quantity_pages:
+                next_request_uri = f"matches?page=2&filter_by_player_name={query_params["filter_by_player_name"]}"
+            else:
+                next_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
+            last_request_uri = f"matches?page={quantity_pages}&filter_by_player_name={query_params["filter_by_player_name"]}"
 
-            html_pagination_sample += current_string
+        elif "page" not in query_params and "filter_by_player_name" not in query_params:
+            current_request_uri = f"matches?page={current_page_number}"
+            if current_page_number - 1 >= 1:
+                prev_request_uri = f"matches?page={current_page_number - 1}"
+            else:
+                prev_request_uri = f"matches?page={current_page_number}"
+            if current_page_number + 1 <= quantity_pages:
+                next_request_uri = f"matches?page={current_page_number + 1}"
+            else:
+                next_request_uri = f"matches?page={current_page_number}"
+            last_request_uri = f"matches?page={quantity_pages}"
 
-        html_pagination_sample_end = """<a href="#">&NestedGreaterGreater;</a>
-          </div>
-            <br>
-            """
+        prev_string = f'<a href="{prev_request_uri}">&NestedLessLess;</a>'
+        current_string = f'страница <a href="{current_request_uri}" class="active">{current_page_number}</a> из <a href="{last_request_uri}">{quantity_pages}</a>'
+        next_string = f'<a href="{next_request_uri}">&NestedGreaterGreater;</a>'
 
-        html_pagination_sample += html_pagination_sample_end
+        html_pagination_sample_start = """<br><div class="pagination" style="text-align: center; font-size: 24px;">"""
+        html_pagination_sample_end = """</div><br>"""
+
+        html_pagination_sample = html_pagination_sample_start + prev_string + current_string + next_string + html_pagination_sample_end
 
         return html_pagination_sample
 

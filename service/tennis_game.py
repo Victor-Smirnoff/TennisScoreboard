@@ -94,10 +94,10 @@ class TennisGameTieBreak(TennisGame):
         elif self.player_2_score == 7 and self.player_1_score <= 5:
             self.player_2_win_game = True
             return True
-        elif self.player_1_score >= 6 and self.player_1_score - self.player_2_score == 2:
+        elif self.player_1_score >= 7 and self.player_1_score - self.player_2_score == 2:
             self.player_1_win_game = True
             return True
-        elif self.player_2_score >= 6 and self.player_2_score - self.player_1_score == 2:
+        elif self.player_2_score >= 7 and self.player_2_score - self.player_1_score == 2:
             self.player_2_win_game = True
             return True
         else:
