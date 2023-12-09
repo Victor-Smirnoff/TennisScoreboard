@@ -139,6 +139,7 @@ class MatchesHandler:
         query_params = self.parse_request_uri(REQUEST_URI)
 
         if "page" in query_params and "filter_by_player_name" in query_params:
+            first_page_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
             current_request_uri = f"matches?page={current_page_number}&filter_by_player_name={query_params["filter_by_player_name"]}"
             if current_page_number - 1 >= 1:
                 prev_request_uri = f"matches?page={current_page_number - 1}&filter_by_player_name={query_params["filter_by_player_name"]}"
@@ -151,6 +152,7 @@ class MatchesHandler:
             last_request_uri = f"matches?page={quantity_pages}&filter_by_player_name={query_params["filter_by_player_name"]}"
 
         elif "page" in query_params and "filter_by_player_name" not in query_params:
+            first_page_request_uri = f"matches?page=1"
             current_request_uri = f"matches?page={current_page_number}"
             if current_page_number - 1 >= 1:
                 prev_request_uri = f"matches?page={current_page_number - 1}"
@@ -163,6 +165,7 @@ class MatchesHandler:
             last_request_uri = f"matches?page={quantity_pages}"
 
         elif "page" not in query_params and "filter_by_player_name" in query_params:
+            first_page_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
             current_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
             prev_request_uri = f"matches?page=1&filter_by_player_name={query_params["filter_by_player_name"]}"
             if current_page_number + 1 <= quantity_pages:
@@ -172,6 +175,7 @@ class MatchesHandler:
             last_request_uri = f"matches?page={quantity_pages}&filter_by_player_name={query_params["filter_by_player_name"]}"
 
         elif "page" not in query_params and "filter_by_player_name" not in query_params:
+            first_page_request_uri = f"matches?page=1"
             current_request_uri = f"matches?page={current_page_number}"
             if current_page_number - 1 >= 1:
                 prev_request_uri = f"matches?page={current_page_number - 1}"
@@ -184,7 +188,7 @@ class MatchesHandler:
             last_request_uri = f"matches?page={quantity_pages}"
 
         prev_string = f'<a href="{prev_request_uri}">&NestedLessLess;</a>'
-        current_string = f'страница <a href="{current_request_uri}" class="active">{current_page_number}</a> из <a href="{last_request_uri}">{quantity_pages}</a>'
+        current_string = f'<a href="{first_page_request_uri}">1</a> ... страница <a href="{current_request_uri}" class="active">{current_page_number}</a> из <a href="{last_request_uri}">{quantity_pages}</a>'
         next_string = f'<a href="{next_request_uri}">&NestedGreaterGreater;</a>'
 
         html_pagination_sample_start = """<br><div class="pagination" style="text-align: center; font-size: 24px;">"""
