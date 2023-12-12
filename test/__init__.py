@@ -1,0 +1,3 @@
+from .test_tennis_set import Test_tennis_set
+from .test_tennis_game import Test_tennis_game
+from .test_tennis_match import Test_tennis_match

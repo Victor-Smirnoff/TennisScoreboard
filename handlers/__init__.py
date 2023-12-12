@@ -1,0 +1,7 @@
+from .index_handler import IndexHandler
+from .match_final_score_handler import MatchFinalScoreHandler
+from .match_score_get_handler import MatchScoreGetHandler
+from .match_score_post_handler import MatchScorePostHandler
+from .matches_handler import MatchesHandler
+from .new_match_get_handler import NewMatchGetHandler
+from .new_match_post_handler import NewMatchPostHandler
