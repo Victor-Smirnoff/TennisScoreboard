@@ -2,8 +2,8 @@
 Этот файл служит для создания таблиц players и matches в базе данных tennis и для первоначального наполнения этих таблиц
 """
 
-from model.database import Base, engine, session_factory
-from model.models import PlayerOrm, MatchOrm
+from .database import Base, engine, session_factory
+from .models import PlayerOrm, MatchOrm
 import uuid
 import csv
 from random import choice
