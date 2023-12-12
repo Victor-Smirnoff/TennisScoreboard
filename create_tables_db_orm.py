@@ -51,7 +51,7 @@ class CreateTablesDataBase:
         Метод добавляет сыгранные матчи из файла generated_matches.csv - это рандомно написанные матчи, лишь бы было наполнение
         :return: None
         """
-        with open("static_data/generated_matches.csv", "r", encoding="UTF-8") as file:
+        with open("model/static_data/generated_matches.csv", "r", encoding="UTF-8") as file:
             matches_lst = [name.strip().split(";") for name in file.readlines()][1:]
             matches_lst = [[int(match[0]), int(match[1]), int(match[2]), match[3]] for match in matches_lst]
         tennis_matches = [MatchOrm(UUID=str(uuid.uuid4()), player1=player1, player2=player2, winner=winner, score=score) for player1, player2, winner, score in matches_lst]
@@ -64,7 +64,7 @@ class CreateTablesDataBase:
         Метод возвращает список из 100 игроков, который берет из файла 'static_data/ATP_Rankings.txt'
         :return: список 100 игроков
         """
-        with open("static_data/ATP_Rankings.txt", "r", encoding="UTF-8") as file:
+        with open("model/static_data/ATP_Rankings.txt", "r", encoding="UTF-8") as file:
             tennis_players_lst = [name.strip() for name in file.readlines()]
             return tennis_players_lst
 
@@ -89,7 +89,7 @@ class CreateTablesDataBase:
         """
         columns = ["player1", "player2", "winner", "score"]
 
-        with open("static_data/generated_matches.csv", "w", encoding="UTF-8", newline='') as file:
+        with open("model/static_data/generated_matches.csv", "w", encoding="UTF-8", newline='') as file:
             writer = csv.writer(file, delimiter=';', quoting=csv.QUOTE_NONE)
             writer.writerow(columns)
             for _ in range(quantity_matches):
