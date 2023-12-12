@@ -138,4 +138,4 @@ class MainApp:
 if __name__ == "__main__":
     main_app = MainApp()
     app = WhiteNoise(main_app.process_http_request, "view/static/")
-    serve(app, host="localhost", port=8080)
+    serve(app, host="0.0.0.0", port=8888)
