@@ -6,7 +6,7 @@
 
 ## Для успешного запуска приложения:
 
-Запустить и кайфануть.
+Приложение доступно по адресу: http://37.18.152.4/
 
 ## License
 TennisScoreboard is licensed under the MIT license. (http://opensource.org/licenses/MIT)
