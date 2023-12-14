@@ -23,6 +23,9 @@ class MainApp:
     def process_http_request(self, environ, start_response):
         status = "200 OK"
 
+        if "tennis/" in environ["PATH_INFO"]:
+            environ["PATH_INFO"].replace("tennis/", "")
+
         if environ["PATH_INFO"] == "/" and environ["REQUEST_METHOD"] == "GET":
             handler = IndexHandler()
             HTML = handler()
