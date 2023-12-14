@@ -24,7 +24,7 @@ class MainApp:
         status = "200 OK"
 
         if "tennis/" in environ["PATH_INFO"]:
-            environ["PATH_INFO"].replace("tennis/", "")
+            environ["PATH_INFO"] = environ["PATH_INFO"].replace("tennis/", "")
 
         if environ["PATH_INFO"] == "/" and environ["REQUEST_METHOD"] == "GET":
             handler = IndexHandler()
